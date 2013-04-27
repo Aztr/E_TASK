@@ -1,3 +1,9 @@
+<?php
+include_once 'config.inc.php';
+include_once 'sw/Sesion.php';
+$sesion = new Sesion();
+$sesion->sesionActiva();
+?>
 <!DOCTYPE html>
 <!--[if lt IE 7 ]> <html lang="en" class="no-js ie6 lt8"> <![endif]-->
 <!--[if IE 7 ]>    <html lang="en" class="no-js ie7 lt8"> <![endif]-->
@@ -15,7 +21,10 @@
         <link rel="shortcut icon" href="../favicon.ico"> 
         <link rel="stylesheet" type="text/css" href="css/demo.css" />
         <link rel="stylesheet" type="text/css" href="css/style.css" />
-		<link rel="stylesheet" type="text/css" href="css/animate-custom.css" />
+        <link rel="stylesheet" type="text/css" href="css/animate-custom.css" />
+        <script type="text/javascript" language="javascript" src="js/jquery-1.6.4.js" ></script>
+        <script type="text/javascript" language="javascript" src="js/jquery.form.js" ></script>
+        <script type="text/javascript" language="javascript" src="js/js_index.js" ></script>
     </head>
     <body>
         <div class="container">
@@ -24,12 +33,15 @@
             </header>
             <section>				
                 <div id="container_demo" >
+                    <?php
+                    echo $sesion->iniciarSesion();                    
+                    ?>
                     <!-- hidden anchor to stop jump http://www.css3create.com/Astuce-Empecher-le-scroll-avec-l-utilisation-de-target#wrap4  -->
                     <a class="hiddenanchor" id="toregister"></a>
                     <a class="hiddenanchor" id="tologin"></a>
                     <div id="wrapper">
                         <div id="login" class="animate form">
-                            <form  action="mysuperscript.php" autocomplete="on"> 
+                            <form method="POST"  action="<?php echo $_SERVER['PHP_SELF'] ?>" autocomplete="on"> 
                                 <h1>Ingreso de Usuarios</h1> 
                                 <p> 
                                     <label for="username" class="uname" data-icon="u" > Nombre de Usuario </label>
@@ -40,25 +52,25 @@
                                     <input id="password" name="password" required="required" type="password" placeholder="eg. X8df!90EO" /> 
                                 </p>
                                 <p class="login button"> 
-                                    <input type="submit" value="Entrar" /> 
-								</p>
+                                    <input name="login" type="submit" value="Entrar" /> 
+                                </p>
                                 <p class="change_link">
-									¿No cuenta con un nombre de usuario?
-									<a href="#toregister" class="to_register">Regístrese aquí</a>
-								</p>
+                                    ¿No cuenta con un nombre de usuario?
+                                    <a href="#toregister" class="to_register">Regístrese aquí</a>
+                                </p>
                             </form>
                         </div>
 
                         <div id="register" class="animate form">
-                            <form  action="mysuperscript.php" autocomplete="on"> 
+                            <form id="form_reg_" action="ControladorAlumno.php" autocomplete="on"> 
                                 <h1> Formulario de Registro </h1> 
                                 <p> 
                                     <label for="usernamesignup" class="uname" data-icon="u"> Nombre(s) </label>
-                                    <input id="usernamesignup" name="usernamesignup" required="required" type="text" placeholder="Nombre(s) del usuario" />
+                                    <input id="usernamesignup" name="username" required="required" type="text" placeholder="Nombre(s) del usuario" />
                                 </p>
                                 <p> 
                                     <label for="usernamesignup" class="uname" data-icon="u"> Apellidos </label>
-                                    <input id="usernamesignup" name="usernamesignup" required="required" type="text" placeholder="Apellidos del usuario" />
+                                    <input id="usernamesignup" name="usernamelast" required="required" type="text" placeholder="Apellidos del usuario" />
                                 </p>
                                 <p> 
                                     <label for="emailsignup" class="youmail" data-icon="e" > Usuario </label>
@@ -73,15 +85,15 @@
                                     <input id="passwordsignup_confirm" name="passwordsignup_confirm" required="required" type="password" placeholder="eg. X8df!90EO"/>
                                 </p>
                                 <p class="signin button"> 
-									<input type="submit" value="Registrarse"/> 
-								</p>
+                                    <input name="btn_registrar" id="registrar" type="submit" value="Registrarse"/> 
+                                </p>
                                 <p class="change_link">  
-									¿Ya tiene una cuenta?
-									<a href="#tologin" class="to_register"> Iniciar sesión</a>
-								</p>
+                                    ¿Ya tiene una cuenta?
+                                    <a href="#tologin" class="to_register"> Iniciar sesión</a>
+                                </p>
                             </form>
                         </div>
-						
+
                     </div>
                 </div>  
             </section>

@@ -6,12 +6,12 @@ class UsuarioDAO extends ConexionGeneral {
 
     public function seleccionarUsuarioPorMatricula($usuarioMatricula) {
         $conexion=$this->abrirConexion();        
-        $sql = "SELECT * FROM usuarios WHERE matricula ='" . mysql_real_escape_string($usuarioMatricula) . "'";
+        $sql = "SELECT * FROM usuario WHERE nombre_usuario ='" . mysql_real_escape_string($usuarioMatricula) . "'";
 //        echo $sql;
         $resultado = $this->ejecutarConsulta($sql, $conexion);
         $usuario=null;
         while ($fila = mysql_fetch_array($resultado)) {
-            $usuario = new Usuario($fila["usuarioId"],$fila["contrasenia"], $fila["nombre"], $fila["apellidoP"], $fila["apellidoM"], $fila["matricula"], $fila["tipoUsuario"]);
+            $usuario = new Usuario($fila["id"],$fila["contrasena"], $fila["nombre"], $fila["apellido"], "", $fila["nombre_usuario"], "2");
             return $usuario;
         }
         $this->cerrarConexion($conexion);        
@@ -21,9 +21,9 @@ class UsuarioDAO extends ConexionGeneral {
     public function insertarUsuario($contrasena, $nombre, $apellidoP, $apellidoM, $matricula, $tipoUsuario) {
         $registroExitoso = false;
         $conexionDB = $this->abrirConexion();
-        $sql = "INSERT INTO USUARIOS (nombre,apellidoP,apellidoM,matricula,contrasenia,tipoUsuario) VALUES (\"" . $nombre .
-                "\",\"".$apellidoP."\", \"" . $apellidoM . "\",\"" . $matricula . "\", \"" . $contrasena . "\"," . $tipoUsuario . ");";
-        //echo $sql;
+        $sql = "INSERT INTO USUARIO (nombre,apellido,nombre_usuario,contrasena,administrador) VALUES (\"" . $nombre .
+                "\",\"".$apellidoP."\",\"" . $matricula . "\", \"" . $contrasena . "\"," . $tipoUsuario . ");";
+//        echo $sql;
         if ($this->ejecutarConsulta($sql, $conexionDB)) {
             $registroExitoso = true;
         }
@@ -35,7 +35,7 @@ class UsuarioDAO extends ConexionGeneral {
     public function existeUsuario($matricula) {
         $conexion = $this->abrirConexion();
         $existeUsuario = true;
-        $query = "SELECT * FROM usuarios WHERE matricula = '" . mysql_real_escape_string($matricula) . "'";
+        $query = "SELECT * FROM usuario WHERE nombre_usuario = '" . mysql_real_escape_string($matricula) . "'";
         $lresult = $this->ejecutarConsulta($query, $conexion);
         if (!$lresult) {
             $cerror = "No fue posible recuperar la información de la base de datos.<br>";

@@ -6,14 +6,19 @@ class Sesion {
 
     function iniciarSesion() {
         if (isset($_POST['login'])) {
-            if (isset($_POST["matricula"])) {
-                $matricula = $_POST["matricula"];
-                if (isset($_POST["contrasena"])) {
-                    $password = $_POST["contrasena"];
+//            echo "x1";
+            if (isset($_POST["username"])) {
+//                echo "x2";
+                $matricula = $_POST["username"];                
+                if (isset($_POST["password"])) {
+//                    echo "x3";
+                    $password = $_POST["password"];
                     $usuarioDAO = new UsuarioDAO();
                     $usuario = $usuarioDAO->seleccionarUsuarioPorMatricula($matricula);
                     if ($usuario != null) {
+//                        echo "x4";
                         if ($matricula == trim($usuario->getMatricula()) && $password == trim($usuario->getContrasena())) {
+                            echo "x5";
                             $_SESSION['login'] = true;
                             $_SESSION['usuarioId'] = $usuario->getIdUsuario();
                             $_SESSION['nombre'] = $usuario->getNombre();
@@ -36,6 +41,7 @@ class Sesion {
                 }
             }
         }
+//        echo "x0";
     }
 
     function sesionActiva() {

@@ -7,14 +7,15 @@ include_once 'sw/ServicioAlumno.php';
 
 class ControladorAlumno{
     function agregarAlumnoC() {
-        if (isset($_GET["btn_registrar"]) && $_GET["btn_registrar"] == "Registrar") {
-            $nombre = $_GET["nombre"];
-            $apellidoP = $_GET["apellidoP"];
-            $apellidoM = $_GET["apellidoM"];
-            $matricula = $_GET["matricula"];
-            $contrasena = $_GET["contrasena"];
+        if (isset($_GET["btn_registrar"]) && $_GET["btn_registrar"] == "Registrarse") {
+//            echo "x1";
+            $nombre = $_GET["username"];
+            $apellidoP = $_GET["usernamelast"];
+//            $apellidoM = $_GET["usernamelast"];
+            $matricula = $_GET["emailsignup"];
+            $contrasena = $_GET["passwordsignup"];
             $servicioAlumno = new ServicioAlumno();
-            if($servicioAlumno->agregarAlumno($matricula, $nombre, $contrasena, $apellidoP, $apellidoM))
+            if($servicioAlumno->agregarAlumno($matricula, $nombre, $contrasena, $apellidoP, ""))
             {
                 $msj="TRUE";
             }
@@ -25,7 +26,6 @@ class ControladorAlumno{
         }
     }
 }
-
 $agregarAlumno = new ControladorAlumno();
 echo $agregarAlumno->agregarAlumnoC();
 ?>

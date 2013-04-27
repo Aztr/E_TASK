@@ -3,9 +3,7 @@
 $GLOBALS["servidor"] = "localhost"; 
 $GLOBALS["usuarioDB"] = "root";  
 $GLOBALS["contrasenaDB"] = "";  
-$GLOBALS["base_datos"] = "swfracdb";
+$GLOBALS["base_datos"] = "experiment_tsp";
 
-//Par�metros para la resolucin de urls
-//$GLOBALS["raiz_sitio"] = "http://localhost/swfracciones/";
 $GLOBALS["raiz_sitio"] = "http://localhost/E_TASK";
 ?>
