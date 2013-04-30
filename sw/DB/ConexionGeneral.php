@@ -14,7 +14,7 @@ class ConexionGeneral {
 
     public function ejecutarConsulta($query, $conexion) {
 //        echo "<br>$query<br>";
-        return mysql_query($query, $conexion);
+        return @mysql_query($query, $conexion);
     }
 
     public function cerrarConexion($conexion) {

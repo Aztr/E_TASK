@@ -30,14 +30,14 @@ class Sesion {
                                 header("Location: principal.php");
                             }
                         } else {
-                            return "<div class='error'>Contraseña incorrecta</div>";
+                            return "<div class='error' id='error'><b>La contraseña es incorrecta. Favor de verificarla.</b></div>";
                         }
                     } else {
                         $_SESSION['login'] = false;
-                        return "<div class='error'>Datos introducidos incorrectos</div>";
+                        return "<div class='error' id='error'><b>Los datos introducidos son incorrectos. Favor de verificarlos.</b></div>";
                     }
                 } else {
-                    return "<div class='error'>Escriba su contraseña</div>";
+                    return "<div class='error' id='error'>Escriba su contraseña</div>";
                 }
             }
         }

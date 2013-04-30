@@ -7,7 +7,7 @@ class UsuarioDAO extends ConexionGeneral {
     public function seleccionarUsuarioPorMatricula($usuarioMatricula) {
         $conexion=$this->abrirConexion();        
         $sql = "SELECT * FROM usuario WHERE nombre_usuario ='" . mysql_real_escape_string($usuarioMatricula) . "'";
-//        echo $sql;
+        //echo $sql;
         $resultado = $this->ejecutarConsulta($sql, $conexion);
         $usuario=null;
         while ($fila = mysql_fetch_array($resultado)) {

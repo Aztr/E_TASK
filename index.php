@@ -21,10 +21,18 @@ $sesion->sesionActiva();
         <link rel="shortcut icon" href="../favicon.ico"> 
         <link rel="stylesheet" type="text/css" href="css/demo.css" />
         <link rel="stylesheet" type="text/css" href="css/style.css" />
+        <link rel="stylesheet" type="text/css" href="css/mensajes.css" />
         <link rel="stylesheet" type="text/css" href="css/animate-custom.css" />
         <script type="text/javascript" language="javascript" src="js/jquery-1.6.4.js" ></script>
         <script type="text/javascript" language="javascript" src="js/jquery.form.js" ></script>
         <script type="text/javascript" language="javascript" src="js/js_index.js" ></script>
+        <script type="text/javascript" language="javascript" >
+            function cerrar() {
+                div = document.getElementById('error');
+                div.style.display='none';
+            }
+        </script>
+        
     </head>
     <body>
         <div class="container">
@@ -34,7 +42,7 @@ $sesion->sesionActiva();
             <section>				
                 <div id="container_demo" >
                     <?php
-                    echo $sesion->iniciarSesion();                    
+                    echo $sesion->iniciarSesion();
                     ?>
                     <!-- hidden anchor to stop jump http://www.css3create.com/Astuce-Empecher-le-scroll-avec-l-utilisation-de-target#wrap4  -->
                     <a class="hiddenanchor" id="toregister"></a>
@@ -52,11 +60,11 @@ $sesion->sesionActiva();
                                     <input id="password" name="password" required="required" type="password" placeholder="eg. X8df!90EO" /> 
                                 </p>
                                 <p class="login button"> 
-                                    <input name="login" type="submit" value="Entrar" /> 
+                                    <input name="login" type="submit" value="Entrar" onclick="cerrar();"/> 
                                 </p>
                                 <p class="change_link">
                                     ¿No cuenta con un nombre de usuario?
-                                    <a href="#toregister" class="to_register">Regístrese aquí</a>
+                                    <a href="#toregister" class="to_register" onclick="cerrar();">Regístrese aquí</a>
                                 </p>
                             </form>
                         </div>
@@ -80,10 +88,6 @@ $sesion->sesionActiva();
                                     <label for="passwordsignup" class="youpasswd" data-icon="p"> Contraseña </label>
                                     <input id="passwordsignup" name="passwordsignup" required="required" type="password" placeholder="eg. X8df!90EO"/>
                                 </p>
-                                <p> 
-                                    <label for="passwordsignup_confirm" class="youpasswd" data-icon="p"> Confirmar su contraseña </label>
-                                    <input id="passwordsignup_confirm" name="passwordsignup_confirm" required="required" type="password" placeholder="eg. X8df!90EO"/>
-                                </p>
                                 <p class="signin button"> 
                                     <input name="btn_registrar" id="registrar" type="submit" value="Registrarse"/> 
                                 </p>
@@ -99,4 +103,5 @@ $sesion->sesionActiva();
             </section>
         </div>
     </body>
+
 </html>
