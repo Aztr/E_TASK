@@ -1,6 +1,7 @@
 <?php
 include_once 'config.inc.php';
 include_once 'sw/Sesion.php';
+include_once 'ControladorPrincipal.php';
 $sesion = new Sesion();
 $sesion->filtro_login();
 ?>      
@@ -22,24 +23,97 @@ $sesion->filtro_login();
         <link rel="shortcut icon" href="../favicon.ico"> 
         <link rel="stylesheet" type="text/css" href="css/demo.css" />
         <link rel="stylesheet" type="text/css" href="css/style.css" />
+        <script type="text/javascript" language="javascript" src="js/jquery-1.6.4.js" ></script>
+        <script type="text/javascript" language="javascript" src="js/jquery.form.js" ></script>
+        <script type="text/javascript" language="javascript" src="js/js_index.js" ></script>
+        <script type="text/javascript" language="javascript" src="js/functions.js" ></script>
+
         
     </head>
-    <body>
-        <div class="container">
+    <body onload="noBack();" onpageshow="if (event.persisted) noBack();" onunload="">
+<?// include "classes/Documento.php"?>
+<div class="container">	
+    <div id="wrapper">
             <header>
                 <h1>BIENVENIDO A  <span>E-Task</span></h1>
             </header>
-            <form action = 'sw/cerrarSesion.php' method = 'POST'>
-                <div id="wrapper">
+    <div id="header">
+    	<div id="titleLeft">
+    		<?php $controladorPrincipal=new ControladorPrincipal(); 
+                echo $controladorPrincipal->obtenerNombreTarea(0);
+                ?>
+         </div>
+         <div id="titleRight">
+         	<form action = 'sw/cerrarSesion.php' method = 'POST'>
+                
                     <p class="button"> 
                         <input class='button' type = 'submit' name = 'logout' value = 'Salir'>
                     </p>
-                </div>
+                
             </form>
-
-
-
-
-        </div>
-    </body>
+      </div>
+             <br class="clearfloat" />           
+    </div>
+    <div id="subContainerOne">
+      <div id="subContainerTwo">            
+         	  <div id="leftBar">
+                  <!--  <?											
+						//$doc = new Documento(); 
+						//$doc->
+                                                //transformarP("config/".$row_treatment['maint']."_treatment.xml","templates/treatment.xsl","1");					
+						//include('divleft.php');
+					?>-->
+      		  </div>           
+  			  <div id="workArea">
+                              <div id ="instrucciones" onclick="oculta()">
+                                            <p>instrucciones</p>
+                                            <?php $instrucciones= $controladorPrincipal->obtenerInstrucciones(0);
+                                             echo $instrucciones;?>
+                    	
+                  
+                    </div>                    
+              		<!-- 
+                    <div id="encabezadoUno">
+                    	<button>ocultar contenido</button>
+                    </div>
+                    -->                    
+                    <div id ="contenidoUno">
+                    <?	/*									
+						if ($row_ct['endedtask'] == $numberoftasks)
+							include($row_treatment['maint'].'_task'.($row_ct['endedtask']-1).'.php');
+						else
+    	                    include($row_treatment['maint'].'_task'.$row_ct['endedtask'].'.php');
+							
+						//$doc = new Documento(); 
+						//$doc->transformar("config/tarea0.xml","templates/tarea0.xsl");				
+					*/?>                    
+                 	</div>                    
+                    <!-- 
+                    <div id ="encabezadoDos">
+                     	<button>ocultar contenido</button>
+                    </div> 
+                    -->                    
+                    <div id="contenidoDos">
+                    <?/*					
+						if ($row_ct['endedtask'] == $numberoftasks)
+							$op=$row_ct['endedtask']-1;
+						else
+							$op=$row_ct['endedtask'];							
+						include($row_treatment['maint'].'_result.php');	
+							
+					*/?>  
+                    </div>
+                  
+                    <div id="piePagina">                       
+                       <?//php include('footpage.php'); ?>
+                    </div>  
+                  
+      			</div> 
+                
+                <br class="clearfloat" />
+          </div>
+    </div>
+    </div>
+</div>
+</body>
 </html>

@@ -18,11 +18,9 @@ class ControladorAlumno{
             if($servicioAlumno->agregarAlumno($matricula, $nombre, $contrasena, $apellidoP, ""))
             {
                 $msj="TRUE";
-                die();
             }
             else{
                 $msj="FALSE";
-                die();
             }
             return $msj;
         }
