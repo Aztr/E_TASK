@@ -2,6 +2,7 @@
 include_once 'config.inc.php';
 include_once 'sw/Sesion.php';
 include_once 'ControladorPrincipal.php';
+include_once 'sw/ServicioObjeto.php';
 $sesion = new Sesion();
 $sesion->filtro_login();
 ?>      
@@ -57,12 +58,9 @@ $sesion->filtro_login();
     <div id="subContainerOne">
       <div id="subContainerTwo">            
          	  <div id="leftBar">
-                  <!--  <?											
-						//$doc = new Documento(); 
-						//$doc->
-                                                //transformarP("config/".$row_treatment['maint']."_treatment.xml","templates/treatment.xsl","1");					
-						//include('divleft.php');
-					?>-->
+                    <?php $servicioObjeto=new ServicioObjeto(1);?>									
+			<p><?php echo $servicioObjeto->getNombreObjeto()?></p>	
+                        <p><?php echo $servicioObjeto->getDireccionObjeto()?></p>		
       		  </div>           
   			  <div id="workArea">
                               <div id ="instrucciones" onclick="oculta()">
