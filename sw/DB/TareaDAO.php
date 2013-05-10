@@ -28,9 +28,23 @@ class TareaDAO extends ConexionGeneral{
              $i++;
         }
         return $tareas;
-        $this->cerrarConexion($conexion);        
-        
-        
+        $this->cerrarConexion($conexion);               
+    }
+    
+    public function seleccionarCamposPorTarea($idTarea){
+        $conexion=$this->abrirConexion();
+        $sql="SELECT * FROM campos_tarea WHERE tarea_id ='" . mysql_real_escape_string($idTarea) . "'";
+        $resultado = $this->ejecutarConsulta($sql, $conexion);
+        $campo=null;
+        $campos=array();
+        $i=0;
+        while ($fila = mysql_fetch_array($resultado)) {
+            $campo = new CampoTarea($fila["id"],$fila["nombre_campo"]);
+             array_push($campos,$campo);
+             $i++;
+        }
+        return $campos;
+        $this->cerrarConexion($conexion); 
     }
 
 }

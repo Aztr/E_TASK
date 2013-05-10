@@ -112,6 +112,14 @@ $sesion->filtro_login();
                 
                 <br class="clearfloat" />
           </div>
+         <p class="button"> 
+                 <input class='button' type = 'submit' name = 'Instrucciones' value = 'Instrucciones'>
+              </p>
+        <form action = 'sw/TareaSiguiente' method = 'POST'>
+             <p class="button"> 
+                 <input class='button' type = 'submit' name = 'Siguiente' value = 'Siguiente'>
+              </p>
+        </form>
     </div>
     </div>
 </div>
