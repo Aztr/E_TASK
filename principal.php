@@ -70,21 +70,13 @@ $sesion->filtro_login();
                     	
                   
                     </div>                    
-              		<!-- 
-                    <div id="encabezadoUno">
-                    	<button>ocultar contenido</button>
-                    </div>
-                    -->                    
+              		                  
                     <div id ="contenidoUno">
-                    <?	/*									
-						if ($row_ct['endedtask'] == $numberoftasks)
-							include($row_treatment['maint'].'_task'.($row_ct['endedtask']-1).'.php');
-						else
-    	                    include($row_treatment['maint'].'_task'.$row_ct['endedtask'].'.php');
-							
-						//$doc = new Documento(); 
-						//$doc->transformar("config/tarea0.xml","templates/tarea0.xsl");				
-					*/?>                    
+                        <form>
+                        <?php
+                        echo $controladorPrincipal->generarFormulario();
+                    ?>   
+                        </form>
                  	</div>                    
                     <!-- 
                     <div id ="encabezadoDos">
@@ -92,7 +84,8 @@ $sesion->filtro_login();
                     </div> 
                     -->                    
                     <div id="contenidoDos">
-                    <?/*					
+                        
+                        <?/*					
 						if ($row_ct['endedtask'] == $numberoftasks)
 							$op=$row_ct['endedtask']-1;
 						else
@@ -100,6 +93,7 @@ $sesion->filtro_login();
 						include($row_treatment['maint'].'_result.php');	
 							
 					*/?>  
+                        
                     </div>
                   
                     <div id="piePagina">                       

@@ -18,16 +18,16 @@ class ServicioTarea {
     private $campos;
     
      public function __construct($nombreTecnica,$tareaActual){     
-         $this->obtenerTecnica($nombreTecnica,$tareaActual);
-         $this->obtenerTareas($this->tarea->getIdTarea());
+         $this->obtenerTarea($nombreTecnica,$tareaActual);
+         $this->obtenerCampos($this->tarea->getIdTarea());
     }
     
-        private function obtenerTecnica($nombreTecnica,$tareaActual){
+        private function obtenerTarea($nombreTecnica,$tareaActual){
          $servicioTecnica=new ServicioTecnica($nombreTecnica);
          
-         $this->tecnica=$servicioTecnica->obtenerTareaEnOrden($tareaActual);
+         $this->tarea=$servicioTecnica->obtenerTareaEnOrden($tareaActual);
      }
-     private function obtenerTareas($idTarea){
+     private function obtenerCampos($idTarea){
          $tareaDAO=new TareaDAO();
          
          $this->campos=$tareaDAO->seleccionarCamposPorTarea($idTarea);
@@ -38,8 +38,9 @@ class ServicioTarea {
      }
      public function obtenerCamposEnOrden($campoActual){
 
+         if($campoActual<sizeof($this->campos))
          return $this->campos[$campoActual];
-
+         else return null;
      }
 }
 

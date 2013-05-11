@@ -1,6 +1,7 @@
 <?php
      include_once 'ConexionGeneral.php';
      include_once 'sw\domain\Tarea.php';
+     include_once 'sw\domain\CampoTarea.php';
 
 /*
  * To change this template, choose Tools | Templates
