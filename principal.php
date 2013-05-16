@@ -28,11 +28,14 @@ $sesion->filtro_login();
         <script type="text/javascript" language="javascript" src="js/jquery.form.js" ></script>
         <script type="text/javascript" language="javascript" src="js/js_index.js" ></script>
         <script type="text/javascript" language="javascript" src="js/functions.js" ></script>
-
+        <script type="text/javascript" language="javascript" src="js/ajax.js" ></script>
         
     </head>
     <body onload="noBack();" onpageshow="if (event.persisted) noBack();" onunload="">
-<?// include "classes/Documento.php"?>
+<?php $controladorPrincipal= ControladorPrincipal::getInstance();
+    if($controladorPrincipal->getNumCampos()>0)   
+        $controladorPrincipal->registraFormulario();
+?>
 <div class="container">	
     <div id="wrapper">
             <header>
@@ -40,7 +43,7 @@ $sesion->filtro_login();
             </header>
     <div id="header">
     	<div id="titleLeft">
-    		<?php $controladorPrincipal=new ControladorPrincipal(); 
+    		<?php  
                 echo $controladorPrincipal->obtenerNombreTarea(0);
                 ?>
          </div>
@@ -72,10 +75,13 @@ $sesion->filtro_login();
                     </div>                    
               		                  
                     <div id ="contenidoUno">
-                        <form>
+                        <form method="POST"  action="<?php $_SERVER['PHP_SELF']?>">
                         <?php
                         echo $controladorPrincipal->generarFormulario();
-                    ?>   
+                        ?>    
+                        <p class="button"> 
+                         <input class='button' type = 'submit' name = 'Agregar' value = 'Agregar'>
+                        </p>
                         </form>
                  	</div>                    
                     <!-- 
@@ -105,7 +111,7 @@ $sesion->filtro_login();
                 <br class="clearfloat" />
           </div>
          <p class="button"> 
-                 <input class='button' type = 'submit' name = 'Instrucciones' value = 'Instrucciones'>
+                 <input class='button' type = 'submit' name = 'Instrucciones' value = 'Instrucciones' onclick="oculta()">
               </p>
         <form action = 'sw/TareaSiguiente' method = 'POST'>
              <p class="button"> 
