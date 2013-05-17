@@ -16,22 +16,26 @@ include_once 'sw/DB/ResultadoDAO.php';
 class ControladorPrincipal {
     private $servicioTecnica;
     private $servicioTarea;
-    private static $camposEnTarea;
+    private $camposEnTarea;
     private $resultado;
     private static $instancia;
     
     public static function getInstance(){
-        if(ControladorPrincipal::$instancia==null){
-            ControladorPrincipal::$instancia=new ControladorPrincipal();
-        }
-        return ControladorPrincipal::$instancia;
+        if (  !self::$instancia instanceof self)
+      {
+         self::$instancia = new self;
+      }
+      return self::$instancia;
     }
     
     private function __construct() {
         $this->servicioTecnica=new ServicioTecnica("Tecnica de prueba");
         $this->servicioTarea=new servicioTarea("Tecnica de prueba","0");
         $this->resultado=new ResultadoDAO();
-        ControladorPrincipal::$camposEnTarea=0;
+        if(isset($_POST['numeroCampos']))
+        $this->camposEnTarea=$_POST['numeroCampos'];
+        else
+            $this->camposEnTarea=0;
     }
     
     public function obtenerInstrucciones($tareaActual){
@@ -46,11 +50,11 @@ class ControladorPrincipal {
     public function generarFormulario(){
         $cadena="";
         $i=0;
-        ControladorPrincipal::$camposEnTarea=0;
+        $this->camposEnTarea=0;
         $campo=$this->servicioTarea->obtenerCamposEnOrden($i);
         do{
             $cadena=$cadena."<p>".$campo->getNombreCampo().": <input id=\"campo".$i."\" name=\"campo".$i."\" type=\"text\" /> </p>";
-            ControladorPrincipal::$camposEnTarea+=1;
+            $this->camposEnTarea+=1;
             $i+=1;
             $campo=$this->servicioTarea->obtenerCamposEnOrden($i);
         }while($campo!=null);
@@ -58,13 +62,14 @@ class ControladorPrincipal {
     }
     public function registraFormulario(){           
         for($i=0;$i<$this->camposEnTarea;$i++){
-           $valor=$_Post["campo".$i];
-           $this->resultado->insertarValorCampo($valor, 1, $i);
+           if(isset($_POST["campo".$i])){
+            $valor=$_POST["campo".$i];
+           $this->resultado->insertarValorCampo($valor, 1, $this->servicioTarea->obtenerCamposEnOrden($i)->getId());
+           }
         }
-        return $valor;
     }
     public function getNumCampos(){
-        return ControladorPrincipal::$camposEnTarea;
+        return $this->camposEnTarea;
     }
 }
 

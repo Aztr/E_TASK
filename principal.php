@@ -33,6 +33,7 @@ $sesion->filtro_login();
     </head>
     <body onload="noBack();" onpageshow="if (event.persisted) noBack();" onunload="">
 <?php $controladorPrincipal= ControladorPrincipal::getInstance();
+    echo $controladorPrincipal->getNumCampos()."lsdkjlkdfj";
     if($controladorPrincipal->getNumCampos()>0)   
         $controladorPrincipal->registraFormulario();
 ?>
@@ -75,10 +76,12 @@ $sesion->filtro_login();
                     </div>                    
               		                  
                     <div id ="contenidoUno">
-                        <form method="POST"  action="<?php $_SERVER['PHP_SELF']?>">
+                        <form method="POST"  action="<?php echo $_SERVER['PHP_SELF']?>" name="formulario">
                         <?php
                         echo $controladorPrincipal->generarFormulario();
+                        
                         ?>    
+                            <input type="hidden" name="numeroCampos" value="<?php echo $controladorPrincipal->getNumCampos(); ?>" />
                         <p class="button"> 
                          <input class='button' type = 'submit' name = 'Agregar' value = 'Agregar'>
                         </p>
