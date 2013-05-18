@@ -20,23 +20,24 @@ class ControladorPrincipal {
     private $resultado;
     private static $instancia;
     
-    public static function getInstance(){
+    public static function getInstance($nombreTecnica,$idTarea){
         if (  !self::$instancia instanceof self)
       {
-         self::$instancia = new self;
+         self::$instancia = new ControladorPrincipal($nombreTecnica, $idTarea);
       }
       return self::$instancia;
     }
     
-    private function __construct() {
-        $this->servicioTecnica=new ServicioTecnica("Tecnica de prueba");
-        $this->servicioTarea=new servicioTarea("Tecnica de prueba","0");
+    private function __construct($nombreTecnica,$idTarea) {
+        $this->servicioTecnica=new ServicioTecnica($nombreTecnica);
+        $this->servicioTarea=new servicioTarea($nombreTecnica,$idTarea);
         $this->resultado=new ResultadoDAO();
         if(isset($_POST['numeroCampos']))
         $this->camposEnTarea=$_POST['numeroCampos'];
         else
             $this->camposEnTarea=0;
     }
+    
     
     public function obtenerInstrucciones($tareaActual){
         

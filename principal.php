@@ -32,8 +32,7 @@ $sesion->filtro_login();
         
     </head>
     <body onload="noBack();" onpageshow="if (event.persisted) noBack();" onunload="">
-<?php $controladorPrincipal= ControladorPrincipal::getInstance();
-    echo $controladorPrincipal->getNumCampos()."lsdkjlkdfj";
+<?php $controladorPrincipal= ControladorPrincipal::getInstance($_SESSION['nombreTecnica'],$_SESSION['idTarea']);
     if($controladorPrincipal->getNumCampos()>0)   
         $controladorPrincipal->registraFormulario();
 ?>
@@ -69,7 +68,7 @@ $sesion->filtro_login();
   			  <div id="workArea">
                               <div id ="instrucciones" onclick="oculta()">
                                             <p>instrucciones</p>
-                                            <?php $instrucciones= $controladorPrincipal->obtenerInstrucciones(0);
+                                            <?php $instrucciones= $controladorPrincipal->obtenerInstrucciones($_SESSION['idTarea']);
                                              echo $instrucciones;?>
                     	
                   
@@ -116,7 +115,7 @@ $sesion->filtro_login();
          <p class="button"> 
                  <input class='button' type = 'submit' name = 'Instrucciones' value = 'Instrucciones' onclick="oculta()">
               </p>
-        <form action = 'sw/TareaSiguiente' method = 'POST'>
+        <form action = 'sw/TareaSiguiente.php' method = 'POST'>
              <p class="button"> 
                  <input class='button' type = 'submit' name = 'Siguiente' value = 'Siguiente'>
               </p>
