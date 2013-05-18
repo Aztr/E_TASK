@@ -30,11 +30,56 @@ $sesion->filtro_login();
         <script type="text/javascript" language="javascript" src="js/functions.js" ></script>
         <script type="text/javascript" language="javascript" src="js/ajax.js" ></script>
 
+        <script>
+            function showUser(str, str2)
+            {
+                
+                if (str=="")
+                {
+                    
+                    document.getElementById("txtHint").innerHTML="";
+                    return;
+                } 
+                if (window.XMLHttpRequest)
+                {// code for IE7+, Firefox, Chrome, Opera, Safari
+                    xmlhttp=new XMLHttpRequest();
+                }
+                else
+                {// code for IE6, IE5
+                    xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+                }
+                xmlhttp.onreadystatechange=function()
+                {
+                    if (xmlhttp.readyState==4 && xmlhttp.status==200)
+                    {
+                        
+                        document.getElementById("txtHint").innerHTML=xmlhttp.responseText;
+                    }
+                }
+                xmlhttp.open("GET","getDatos.php?q="+str+"&&r="+str2,true);
+                xmlhttp.send();
+            }
+        </script>
+
+        <script>
+            function limpia(elemento)
+            {
+                elemento.value = "";
+            }
+
+            function verifica(elemento)
+            {
+                if(elemento.value == "")
+                    elemento.value = "Default Value";
+            }
+        </script>
+
+
     </head>
     <body onload="noBack();" onpageshow="if (event.persisted) noBack();" onunload="">
         <?php
         $controladorPrincipal = ControladorPrincipal::getInstance();
-        echo $controladorPrincipal->getNumCampos() . "lsdkjlkdfj";
+        $controladorPrincipal->getNumCampos();
         if ($controladorPrincipal->getNumCampos() > 0)
             $controladorPrincipal->registraFormulario();
         ?>
@@ -79,13 +124,21 @@ $sesion->filtro_login();
                             </div>                    
 
                             <div id ="contenidoUno">
-                                <form method="POST"  action="<?php echo $_SERVER['PHP_SELF'] ?>" name="formulario">
-                                    <?php
-                                    echo $controladorPrincipal->generarFormulario();
-                                    ?>    
-                                    <input type="hidden" name="numeroCampos" value="<?php echo $controladorPrincipal->getNumCampos(); ?>" />
+                                <!--                                <form method="POST">
+                                <?php
+                                echo $controladorPrincipal->generarFormulario();
+                                ?>    
+                                                                    <input type="hidden" name="numeroCampos" value="<?php echo $controladorPrincipal->getNumCampos(); ?>" />
+                                                                    <p class="button"> 
+                                                                        <input class='button' type = 'button' name = 'Agregar' value = 'Agregar' onclick="showUser();">
+                                                                    </p>
+                                                                </form>-->
+
+                                <form method="post" id="formdata">
+                                    Número de Línea: <input type="text" name="fname" onclick="javascript: limpia(this);" onBlur="javascript: verifica(this);">
+                                    Descripción: <input type="text" name="lname" onclick="javascript: limpia(this);" onBlur="javascript: verifica(this);"><br><br>
                                     <p class="button"> 
-                                        <input class='button' type = 'submit' name = 'Agregar' value = 'Agregar'>
+                                        <input class='button' type='button' value="Enviar" onclick="showUser(fname.value,lname.value);">
                                     </p>
                                 </form>
                             </div>                    
@@ -95,15 +148,7 @@ $sesion->filtro_login();
                             </div> 
                             -->                    
                             <div id="contenidoDos">
-
-                                <? /* 					
-                                  if ($row_ct['endedtask'] == $numberoftasks)
-                                  $op=$row_ct['endedtask']-1;
-                                  else
-                                  $op=$row_ct['endedtask'];
-                                  include($row_treatment['maint'].'_result.php');
-
-                                 */ ?>  
+                                <div id="txtHint"></div>
 
                             </div>
 
