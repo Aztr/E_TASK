@@ -47,13 +47,18 @@ class ControladorPrincipal {
         $tarea=$this->servicioTecnica->obtenerTareaEnOrden($tareaActual);
         return $tarea->getNombre();
     }
+    
+        public function obtenerIdTarea($tareaActual){
+        $tarea=$this->servicioTecnica->obtenerTareaEnOrden($tareaActual);
+        return $tarea->getIdTarea();
+    }
     public function generarFormulario(){
         $cadena="";
         $i=0;
         $this->camposEnTarea=0;
         $campo=$this->servicioTarea->obtenerCamposEnOrden($i);
         do{
-            $cadena=$cadena."<p>".$campo->getNombreCampo().": <input id=\"campo".$i."\" name=\"campo".$i."\" type=\"text\" /> </p>";
+            $cadena=$cadena."<p>".$campo->getNombreCampo().": <input id=\"campo".$i."\" name=\"".$campo->getId()."\" type=\"text\" onclick=\"javascript: limpia(this);\"/> </p>";
             $this->camposEnTarea+=1;
             $i+=1;
             $campo=$this->servicioTarea->obtenerCamposEnOrden($i);

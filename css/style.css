@@ -398,7 +398,6 @@ p.change_link{
 #titleLeft {
 		margin: 5px 5px 5px 5px;
 		padding: 5px 5px 5px 5px;
-		border:#AAAAAA 1px solid;
 		width: 150px;
 		float: left;
 		/*padding: 15px 0; */ /* top and bottom padding create visual space within this div */
@@ -409,7 +408,6 @@ p.change_link{
 #titleCenter {
 		margin: 5px 5px 5px 5px;
 		padding: 5px 5px 5px 5px;
-		border:#AAAAAA 1px solid;
 		width: 300px;
 		float:left;
 	}
@@ -417,7 +415,6 @@ p.change_link{
 #titleRight {
 		margin: 5px 5px 5px 5px;
 		padding: 5px 5px 5px 5px;
-		border:#AAAAAA 1px solid;
 		width: 300px;
 		float: right;
 		

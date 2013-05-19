@@ -29,100 +29,143 @@ $sesion->filtro_login();
         <script type="text/javascript" language="javascript" src="js/js_index.js" ></script>
         <script type="text/javascript" language="javascript" src="js/functions.js" ></script>
         <script type="text/javascript" language="javascript" src="js/ajax.js" ></script>
-        
+
     </head>
     <body onload="noBack();" onpageshow="if (event.persisted) noBack();" onunload="">
-<?php $controladorPrincipal= ControladorPrincipal::getInstance();
-    echo $controladorPrincipal->getNumCampos()."lsdkjlkdfj";
-    if($controladorPrincipal->getNumCampos()>0)   
-        $controladorPrincipal->registraFormulario();
-?>
-<div class="container">	
-    <div id="wrapper">
-            <header>
-                <h1>BIENVENIDO A  <span>E-Task</span></h1>
-            </header>
-    <div id="header">
-    	<div id="titleLeft">
-    		<?php  
-                echo $controladorPrincipal->obtenerNombreTarea(0);
-                ?>
-         </div>
-         <div id="titleRight">
-         	<form action = 'sw/cerrarSesion.php' method = 'POST'>
-                
-                    <p class="button"> 
-                        <input class='button' type = 'submit' name = 'logout' value = 'Salir'>
-                    </p>
-                
-            </form>
-      </div>
-             <br class="clearfloat" />           
-    </div>
-    <div id="subContainerOne">
-      <div id="subContainerTwo">            
-         	  <div id="leftBar">
-                    <?php $servicioObjeto=new ServicioObjeto(1);?>									
-			<p><?php echo $servicioObjeto->getNombreObjeto()?></p>	
-                        <p><?php echo $servicioObjeto->getDireccionObjeto()?></p>		
-      		  </div>           
-  			  <div id="workArea">
-                              <div id ="instrucciones" onclick="oculta()">
-                                            <p>instrucciones</p>
-                                            <?php $instrucciones= $controladorPrincipal->obtenerInstrucciones(0);
-                                             echo $instrucciones;?>
-                    	
-                  
-                    </div>                    
-              		                  
-                    <div id ="contenidoUno">
-                        <form method="POST"  action="<?php echo $_SERVER['PHP_SELF']?>" name="formulario">
+        <?php
+        $controladorPrincipal = ControladorPrincipal::getInstance();
+        if ($controladorPrincipal->getNumCampos() > 0)
+            $controladorPrincipal->registraFormulario();
+        ?>
+        <div class="container">	
+            <div id="wrapper">
+                <header>
+                    <h1>BIENVENIDO A  <span>E-Task</span></h1>
+                </header>
+                <div id="header">
+                    <div id="titleLeft">
                         <?php
-                        echo $controladorPrincipal->generarFormulario();
-                        
-                        ?>    
-                            <input type="hidden" name="numeroCampos" value="<?php echo $controladorPrincipal->getNumCampos(); ?>" />
-                        <p class="button"> 
-                         <input class='button' type = 'submit' name = 'Agregar' value = 'Agregar'>
-                        </p>
-                        </form>
-                 	</div>                    
-                    <!-- 
-                    <div id ="encabezadoDos">
-                     	<button>ocultar contenido</button>
-                    </div> 
-                    -->                    
-                    <div id="contenidoDos">
-                        
-                        <?/*					
-						if ($row_ct['endedtask'] == $numberoftasks)
-							$op=$row_ct['endedtask']-1;
-						else
-							$op=$row_ct['endedtask'];							
-						include($row_treatment['maint'].'_result.php');	
-							
-					*/?>  
-                        
+                        $_SESSION['idTarea'] = $controladorPrincipal->obtenerIdTarea(0);
+                        echo $controladorPrincipal->obtenerIdTarea(0);
+                        echo ". " . $controladorPrincipal->obtenerNombreTarea(0);
+                        ?>
                     </div>
-                  
-                    <div id="piePagina">                       
-                       <?//php include('footpage.php'); ?>
-                    </div>  
-                  
-      			</div> 
+                    <div id="titleRight">
+                        <form action = 'sw/cerrarSesion.php' method = 'POST'>
+
+                            <p class="button"> 
+                                <input class='button' type = 'submit' name = 'logout' value = 'Salir'>
+                            </p>
+
+                        </form>
+                    </div>
+                    <br class="clearfloat" />           
+                </div>
+                <div id="subContainerOne">
+                    <div id="subContainerTwo">            
+                        <div id="leftBar">
+                            <?php $servicioObjeto = new ServicioObjeto(1); ?>									
+                            <p><?php echo $servicioObjeto->getNombreObjeto() ?></p>	
+                            <p><?php echo $servicioObjeto->getDireccionObjeto() ?></p>		
+                        </div>           
+                        <div id="workArea">
+                            <div id ="instrucciones" onclick="oculta()">
+                                <p>instrucciones</p>
+                                <?php
+                                $instrucciones = $controladorPrincipal->obtenerInstrucciones(0);
+                                echo $instrucciones;
+                                ?>
+
+
+                            </div>                    
+
+                            <div id ="contenidoUno">
+                                <form method="POST"  action="<?php echo $_SERVER['PHP_SELF'] ?>" name="formulario">
+                                    <?php
+                                    echo $controladorPrincipal->generarFormulario();
+                                    ?>    
+
+                                    <p class="button"> 
+                                        <input class='button' type='button' value="Enviar" onclick="showUser(1);">
+                                    </p>    
+                                </form>
+                            </div>                    
+                            <!-- 
+                            <div id ="encabezadoDos">
+                                <button>ocultar contenido</button>
+                            </div> 
+                            -->                    
+                            <div id="contenidoDos">
+                                <div id="txtHint"></div>
+                            </div>
+
+                            <div id="piePagina">                       
+                                <? //php include('footpage.php');   ?>
+                            </div>  
+
+                        </div> 
+
+                        <br class="clearfloat" />
+                    </div>
+                    <p class="button"> 
+                        <input class='button' type = 'submit' name = 'Instrucciones' value = 'Instrucciones' onclick="oculta()">
+                    </p>
+                    <form action = 'sw/TareaSiguiente' method = 'POST'>
+                        <p class="button"> 
+                            <input class='button' type = 'submit' name = 'Siguiente' value = 'Siguiente'>
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            function showUser()
+            {
                 
-                <br class="clearfloat" />
-          </div>
-         <p class="button"> 
-                 <input class='button' type = 'submit' name = 'Instrucciones' value = 'Instrucciones' onclick="oculta()">
-              </p>
-        <form action = 'sw/TareaSiguiente' method = 'POST'>
-             <p class="button"> 
-                 <input class='button' type = 'submit' name = 'Siguiente' value = 'Siguiente'>
-              </p>
-        </form>
-    </div>
-    </div>
-</div>
-</body>
+                var numero = <?php
+                                echo $controladorPrincipal->getNumCampos();
+                                ?>;
+                                        var arregloID = new Array(numero);
+                                        var arregloValor = new Array(numero);
+                                        for(i = 0; i<numero;i++){
+                                            arregloID[i]= document.getElementById("campo"+[i]).name;
+                                            arregloValor[i]= document.getElementById("campo"+[i]).value;
+                                        }
+                
+                
+                                        if (arregloID.length!=numero)
+                                        {
+
+                                            document.getElementById("txtHint").innerHTML="";
+                                            return;
+                                        } 
+                                        if (window.XMLHttpRequest)
+                                        {// code for IE7+, Firefox, Chrome, Opera, Safari
+                                            xmlhttp=new XMLHttpRequest();
+                                        }
+                                        else
+                                        {// code for IE6, IE5
+                                            xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+                                        }
+                                        xmlhttp.onreadystatechange=function()
+                                        {
+                                            if (xmlhttp.readyState==4 && xmlhttp.status==200)
+                                            {
+
+                                                document.getElementById("txtHint").innerHTML=xmlhttp.responseText;
+                                            }
+                                        }
+                                        xmlhttp.open("GET","getDatos.php?q="+arregloID+"&&r="+arregloValor,true);
+                                        xmlhttp.send();
+                                    }
+        </script>
+
+        <script>
+            function limpia(elemento)
+            {
+                elemento.value = "";
+            }
+        </script>
+    </body>
 </html>
