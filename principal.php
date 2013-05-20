@@ -3,6 +3,8 @@ include_once 'config.inc.php';
 include_once 'sw/Sesion.php';
 include_once 'ControladorPrincipal.php';
 include_once 'sw/ServicioObjeto.php';
+include_once 'sw/ServicioTarea.php';
+include_once 'sw/ServicioTecnica.php';
 $sesion = new Sesion();
 $sesion->filtro_login();
 ?>      
@@ -82,12 +84,14 @@ $sesion->filtro_login();
                             <div id ="contenidoUno">
                                 <form method="POST"  action="<?php echo $_SERVER['PHP_SELF'] ?>" name="formulario">
                                     <?php
-                                    echo $controladorPrincipal->generarFormulario();
-                                    ?>    
-
-                                    <p class="button"> 
-                                        <input class='button' type='button' value="Enviar" onclick="showUser(1);">
-                                    </p>    
+                                        $servicioTarea=$controladorPrincipal->getServicioTarea();
+                                        $numCampos=$servicioTarea->obtenerCamposEnOrden(0);
+                                        if($numCampos!=null){
+                                            echo $controladorPrincipal->generarFormulario();
+                                            $cadena="<p class=\"button\"><input class='button' type='button' value=\"Enviar\" onclick=\"showUser(1);\"></p>";
+                                            echo $cadena;
+                                        }
+                                    ?>
                                 </form>
                             </div>                    
                             <!-- 

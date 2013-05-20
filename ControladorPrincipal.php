@@ -29,8 +29,8 @@ class ControladorPrincipal {
     }
     
     private function __construct() {
-        $this->servicioTecnica=new ServicioTecnica("Tecnica de prueba");
-        $this->servicioTarea=new servicioTarea("Tecnica de prueba","0");
+        $this->servicioTecnica=new ServicioTecnica("Pruebas Estructurales");
+        $this->servicioTarea=new servicioTarea("Pruebas Estructurales","0");
         $this->resultado=new ResultadoDAO();
         if(isset($_POST['numeroCampos']))
         $this->camposEnTarea=$_POST['numeroCampos'];
@@ -75,6 +75,9 @@ class ControladorPrincipal {
     }
     public function getNumCampos(){
         return $this->camposEnTarea;
+    }
+    public function getServicioTarea(){
+        return $this->servicioTarea;
     }
 }
 
