@@ -23,8 +23,7 @@ class ServicioTecnica {
     }
     
     private function obtenerTecnica($nombreTecnica){
-         $tecnicaDAO=new TecnicaDAO();
-         
+         $tecnicaDAO=new TecnicaDAO();         
          $this->tecnica=$tecnicaDAO->seleccionarTecnicaPorNombre($nombreTecnica);
      }
      private function obtenerTareas($idTecnica){
@@ -37,9 +36,8 @@ class ServicioTecnica {
          return $this->tecnica;
      }
      public function obtenerTareaEnOrden($tareaActual){
-
+//         echo "<br>".$tareaActual."<br>";
          return $this->tareas[$tareaActual];
-
      }
 }
 

@@ -18,7 +18,7 @@ class TecnicaDAO extends ConexionGeneral{
        public function seleccionarTecnicaPorNombre($nombreTecnica) {
         $conexion=$this->abrirConexion();        
         $sql = "SELECT * FROM tecnica WHERE nombre ='" . mysql_real_escape_string($nombreTecnica) . "'";
-        //echo $sql;
+//        echo $sql;
         $resultado = $this->ejecutarConsulta($sql, $conexion);
         $Tecnica=null;
         while ($fila = mysql_fetch_array($resultado)) {
