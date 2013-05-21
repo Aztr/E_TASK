@@ -20,15 +20,15 @@ class ControladorPrincipal {
     private $resultado;
     private static $instancia;
     
-    public static function getInstance(){
+    public static function getInstance($nombreTecnica,$idTarea){
         if (  !self::$instancia instanceof self)
       {
-         self::$instancia = new self;
+         self::$instancia = new ControladorPrincipal($nombreTecnica,$idTarea);
       }
       return self::$instancia;
     }
     
-    private function __construct() {
+    private function __construct($nombreTecnica,$idTarea) {
         $this->servicioTecnica=new ServicioTecnica($nombreTecnica);
         $this->servicioTarea=new servicioTarea($nombreTecnica,$idTarea);
         $this->resultado=new ResultadoDAO();
