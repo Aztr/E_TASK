@@ -68,7 +68,13 @@ $sesion->filtro_login();
                         <div id="leftBar">
                             <?php $servicioObjeto = new ServicioObjeto(1); ?>									
                             <p><?php echo $servicioObjeto->getNombreObjeto() ?></p>	
-                            <p><?php echo $servicioObjeto->getDireccionObjeto() ?></p>		
+                            <p>
+                            <?php
+                            $raw = file_get_contents($servicioObjeto->getDireccionObjeto());
+                            echo '<pre>';
+                            echo str_replace("[\n]", "<br>",$raw);
+                            echo '</pre>'
+                            ?>                            </p>		
                         </div>           
                         <div id="workArea">
                             <div id ="instrucciones" onclick="oculta()">
@@ -156,7 +162,6 @@ $sesion->filtro_login();
                                         {
                                             if (xmlhttp.readyState==4 && xmlhttp.status==200)
                                             {
-
                                                 document.getElementById("txtHint").innerHTML=xmlhttp.responseText;
                                             }
                                         }
