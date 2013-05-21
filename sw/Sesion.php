@@ -24,6 +24,8 @@ class Sesion {
                             $_SESSION['nombre'] = $usuario->getNombre();
                             $_SESSION['tipo'] = $usuario->getTipoUsuario();
                             $_SESSION['matricula'] = $usuario->getMatricula();
+                            $_SESSION['nombreTecnica']="Tecnica de prueba";
+                            $_SESSION['idTarea']=0;
                             if ($usuario->getTipoUsuario() == 2) {
                                 header("Location: principal.php");
                             } else {

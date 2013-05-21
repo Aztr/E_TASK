@@ -35,7 +35,7 @@ $sesion->filtro_login();
     </head>
     <body onload="noBack();" onpageshow="if (event.persisted) noBack();" onunload="">
         <?php
-        $controladorPrincipal = ControladorPrincipal::getInstance();
+        $controladorPrincipal = ControladorPrincipal::getInstance($_SESSION['nombreTecnica'],$_SESSION['idTarea']);
         if ($controladorPrincipal->getNumCampos() > 0)
             $controladorPrincipal->registraFormulario();
         ?>
