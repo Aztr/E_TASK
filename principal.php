@@ -1,5 +1,6 @@
 <?php
 include_once 'config.inc.php';
+include_once 'sw/ServicioAsignacion.php';
 include_once 'sw/Sesion.php';
 include_once 'ControladorPrincipal.php';
 include_once 'sw/ServicioObjeto.php';
@@ -7,6 +8,17 @@ include_once 'sw/ServicioTarea.php';
 include_once 'sw/ServicioTecnica.php';
 $sesion = new Sesion();
 $sesion->filtro_login();
+if (isset($_GET['tecnica'])) {
+    $servicioAsignacion = new ServicioAsignacion();
+    $asiganciones = ($servicioAsignacion->obtenerAsignacion());
+    for ($i = 0; $i < count($asiganciones); $i++) {
+        if (strcmp(trim($asiganciones[$i]['nombre']), trim($_GET['tecnica'])) == 0) {
+            $_SESSION['nombreTecnica'] = $_GET['tecnica'];
+            $_SESSION['idTarea'] = $asiganciones[$i]['id_ultima_tarea'];
+            break;
+        }
+    }
+}
 ?>      
 
 <!DOCTYPE html>
@@ -41,14 +53,16 @@ $sesion->filtro_login();
         ?>
         <div class="container">	
             <div id="wrapper">
-                <header>
-                    <h1>BIENVENIDO A  <span>E-Task</span></h1>
-                </header>
+                <header><h1>
+                                    <?php
+                        echo "Tarea: " . $controladorPrincipal->obtenerNombreTarea($_SESSION['idTarea']);
+                        ?></h1>
+                    </header>
                 <div id="header">
+
                     <div id="titleLeft">
                         <?php
-                        echo "Tarea: " . $controladorPrincipal->obtenerNombreTarea($_SESSION['idTarea']);
-                        $_SESSION['idBD']=$controladorPrincipal->obtenerIdTarea($_SESSION['idBD']);
+                        $_SESSION['idBD'] = $controladorPrincipal->obtenerIdTarea($_SESSION['idTarea']);
                         ?>
                     </div>
                     <div id="titleRight">
@@ -109,7 +123,7 @@ $sesion->filtro_login();
                             </div>
 
                             <div id="piePagina">                       
-                                <? //php include('footpage.php');   ?>
+                                <? //php include('footpage.php');    ?>
                             </div>  
 
                         </div> 

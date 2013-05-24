@@ -39,13 +39,12 @@ class ServicioTecnica {
          if($tareaActual<  sizeof($this->tareas)){
          return $this->tareas[$tareaActual];
              }else{
-             session_start();
+             //session_start();
                 //Se limpian las variables almacenadas en la sesión
-                $_SESSION = array();
+             $_SESSION = array();
              session_destroy();
-
-               header("location: " . $GLOBALS['raiz_sitio'] . "/index.php");
-               exit;
+             header("location: " . $GLOBALS['raiz_sitio'] . "/index.php");
+             exit;
          }
      }
 }

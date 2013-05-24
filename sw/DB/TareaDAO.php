@@ -18,16 +18,19 @@ class TareaDAO extends ConexionGeneral{
         public function seleccionarTareasPorIdTecnica($idTecnica) {
         $conexion=$this->abrirConexion();        
         $sql = "SELECT * FROM tarea WHERE tecnica_id ='" . mysql_real_escape_string($idTecnica) . "' order by orden";
-        //echo $sql;
+//        echo $sql;
         $resultado = $this->ejecutarConsulta($sql, $conexion);
         $tarea=null;
         $tareas=array();
         $i=0;
+        
         while ($fila = mysql_fetch_array($resultado)) {
-            $tarea = new Tarea($fila["id"],$fila["orden"],$fila["nombre"], $fila["instrucciones"]);
-             array_push($tareas,$tarea);
+//            echo json_encode($fila)."<br>";
+            $tareas[count($tareas)] = new Tarea($fila["id"],$fila["orden"],$fila["nombre"], $fila["instrucciones"]);
+//             array_push($tareas,$tarea);
              $i++;
         }
+//        echo json_encode($tareas);
         return $tareas;
         $this->cerrarConexion($conexion);               
     }

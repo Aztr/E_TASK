@@ -40,9 +40,9 @@ $servicioAsignacion = new ServicioAsignacion();
                 <a class="hiddenanchor" id="tologin"></a>
                 <div id="wrapper">
                     <div id="login" class="animate form">
-                        <form method="GET"  action="<?php echo $_SERVER['PHP_SELF'] ?>" autocomplete="on"> 
+                        <form method="GET"  action="principal.php" autocomplete="on"> 
                             <h1>Seleccione su experimento</h1> 
-                            <h1><select name="tecnica" id="username" placeholder="Mi usuario">
+                            <h1><select required="required" name="tecnica" id="username" placeholder="Mi usuario">
                                 <?php
                                 $asiganciones = ($servicioAsignacion->obtenerAsignacion());
 
@@ -59,15 +59,7 @@ $servicioAsignacion = new ServicioAsignacion();
                              </p>
                                 </h1>
                                 <?php
-                                if (isset($_GET['tecnica'])) {
-                                    $asiganciones = ($servicioAsignacion->obtenerAsignacion());
-                                    for ($i = 0; $i < count($asiganciones); $i++) {
-                                        if (strcmp(trim($asiganciones[$i]['nombre']), trim($_GET['tecnica'])) == 0) {
-                                            echo '->' . $asiganciones[$i]['id_ultima_tarea'] . "<-";
-                                            break;
-                                        }
-                                    }
-                                }
+
                                 ?>
                             </p>
                         </form>

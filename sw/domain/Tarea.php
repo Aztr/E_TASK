@@ -11,10 +11,10 @@
  * @author Roguelider
  */
 class Tarea {
-    private $idTarea;
-    private $orden;
-    private $nombre;
-    private $instrucciones;
+    public $idTarea;
+    public $orden;
+    public $nombre;
+    public $instrucciones;
   
     public function __construct($idTarea,$orden, $nombre, $instrucciones) {
         $this->idTarea=$idTarea;
