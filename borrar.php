@@ -1,8 +1,8 @@
 <?php
 
 session_start();
-$q = $_GET["q"];
-$r = $_GET["r"];
+$ids = $_GET["idsBorrar"];
+$idsCampos = $_GET["idsCampos"];
 
 $con = mysql_connect('localhost', 'root', '');
 if (!$con) {
@@ -10,12 +10,11 @@ if (!$con) {
 }
 
 mysql_select_db("experiment_tsp", $con);
-$arregloID = explode(',', $q);
-$arregloValor = explode(',', $r);
+$arregloIDs = explode(',', $ids);
+$arregloIDCampos = explode(',', $idsCampos);
 
-foreach ($arregloID as $indice => $datoID) {
-    $datoValor = $arregloValor[$indice];
-    $mysql = "INSERT INTO `resultados_tareas` (`valor`, `usuario_id`,`campos_tarea_id`,`numero_transaccion`) VALUES ('" . $datoValor . "'," . $_SESSION['usuarioId'] . "," . $datoID . ",0);";
+foreach ($arregloIDs as $indice => $datoID) {
+    $mysql = "DELETE FROM `resultados_tareas` WHERE `id`=".$datoID;
     mysql_query($mysql);
 }
 
@@ -29,10 +28,9 @@ while ($row = mysql_fetch_array($result)) {
 }
 echo "</tr>";
 
-
-$sql = "SELECT * FROM resultados_tareas;";
+$sql = "SELECT * FROM resultados_tareas WHERE usuario_id='" . $_SESSION['usuarioId'] . "';";
 $resultado = mysql_query($sql);
-$tamano = count($arregloID);
+$tamano = count($arregloIDCampos);
 
 $bandera = 0;
 $ids = "";
@@ -42,17 +40,17 @@ while ($row = mysql_fetch_array($resultado)) {
     }
     
     for ($i = 0; $i < $tamano; $i++) {
-        if ($arregloID[$i] == $row['campos_tarea_id']) {
-            $ids .= $row['id'];
+        if ($arregloIDCampos[$i] == $row['campos_tarea_id']) {
+            $ids = $ids.$row['id'];
             if($i+1 < $tamano){
-                $ids .= ",";
+                $ids = $ids.",";
             }
             echo "<td>" . $row['valor'] . "</td>";
         }
     }
     $bandera++;
     if ($bandera == $tamano) {
-        echo "<td width=\"15\" background=\"images/tacha.gif\" onclick=\"eliminarDatos('" . $ids . "');\">&nbsp;</td>";
+        echo "<td width=\"15\" background=\"images/tacha.gif\" onclick=\"eliminarDatos('".$ids."');\">&nbsp;</td>";
         echo "</tr>";
         $bandera = 0;
         $ids = "";

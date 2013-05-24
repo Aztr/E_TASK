@@ -47,10 +47,14 @@ class ControladorPrincipal {
         $tarea=$this->servicioTecnica->obtenerTareaEnOrden($tareaActual);
         return $tarea->getNombre();
     }
-    
         public function obtenerIdTarea($tareaActual){
         $tarea=$this->servicioTecnica->obtenerTareaEnOrden($tareaActual);
         return $tarea->getIdTarea();
+    }
+    
+        public function obtenerOrdenTarea($tareaActual){
+        $tarea=$this->servicioTecnica->obtenerTareaEnOrden($tareaActual);
+        return $tarea->getOrden();
     }
     public function generarFormulario(){
         $cadena="";

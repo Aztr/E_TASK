@@ -17,7 +17,7 @@ class TareaDAO extends ConexionGeneral{
 
         public function seleccionarTareasPorIdTecnica($idTecnica) {
         $conexion=$this->abrirConexion();        
-        $sql = "SELECT * FROM tarea WHERE tecnica_id ='" . mysql_real_escape_string($idTecnica) . "'";
+        $sql = "SELECT * FROM tarea WHERE tecnica_id ='" . mysql_real_escape_string($idTecnica) . "' order by orden";
         //echo $sql;
         $resultado = $this->ejecutarConsulta($sql, $conexion);
         $tarea=null;
@@ -33,6 +33,7 @@ class TareaDAO extends ConexionGeneral{
     }
     
     public function seleccionarCamposPorTarea($idTarea){
+
         $conexion=$this->abrirConexion();
         $sql="SELECT * FROM campos_tarea WHERE tarea_id ='" . mysql_real_escape_string($idTarea) . "'";
         $resultado = $this->ejecutarConsulta($sql, $conexion);

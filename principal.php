@@ -35,7 +35,7 @@ $sesion->filtro_login();
     </head>
     <body onload="noBack();" onpageshow="if (event.persisted) noBack();" onunload="">
         <?php
-        $controladorPrincipal = ControladorPrincipal::getInstance($_SESSION['nombreTecnica'],$_SESSION['idTarea']);
+        $controladorPrincipal = ControladorPrincipal::getInstance($_SESSION['nombreTecnica'], $_SESSION['idTarea']);
         if ($controladorPrincipal->getNumCampos() > 0)
             $controladorPrincipal->registraFormulario();
         ?>
@@ -47,9 +47,8 @@ $sesion->filtro_login();
                 <div id="header">
                     <div id="titleLeft">
                         <?php
-                        $_SESSION['idTarea'] = $controladorPrincipal->obtenerIdTarea(0);
-                        echo $controladorPrincipal->obtenerIdTarea(0);
-                        echo ". " . $controladorPrincipal->obtenerNombreTarea(0);
+                        echo "Tarea: " . $controladorPrincipal->obtenerNombreTarea($_SESSION['idTarea']);
+                        $_SESSION['idBD']=$controladorPrincipal->obtenerIdTarea($_SESSION['idBD']);
                         ?>
                     </div>
                     <div id="titleRight">
@@ -69,18 +68,18 @@ $sesion->filtro_login();
                             <?php $servicioObjeto = new ServicioObjeto(1); ?>									
                             <p><?php echo $servicioObjeto->getNombreObjeto() ?></p>	
                             <p>
-                            <?php
-                            $raw = file_get_contents($servicioObjeto->getDireccionObjeto());
-                            echo '<pre>';
-                            echo str_replace("[\n]", "<br>",$raw);
-                            echo '</pre>'
-                            ?>                            </p>		
+                                <?php
+                                $raw = file_get_contents($servicioObjeto->getDireccionObjeto());
+                                echo '<pre>';
+                                echo str_replace("[\n]", "<br>", $raw);
+                                echo '</pre>'
+                                ?>                            </p>		
                         </div>           
                         <div id="workArea">
                             <div id ="instrucciones" onclick="oculta()">
                                 <p>instrucciones</p>
                                 <?php
-                                $instrucciones = $controladorPrincipal->obtenerInstrucciones(0);
+                                $instrucciones = $controladorPrincipal->obtenerInstrucciones($_SESSION['idTarea']);
                                 echo $instrucciones;
                                 ?>
 
@@ -90,13 +89,13 @@ $sesion->filtro_login();
                             <div id ="contenidoUno">
                                 <form method="POST"  action="<?php echo $_SERVER['PHP_SELF'] ?>" name="formulario">
                                     <?php
-                                        $servicioTarea=$controladorPrincipal->getServicioTarea();
-                                        $numCampos=$servicioTarea->obtenerCamposEnOrden(0);
-                                        if($numCampos!=null){
-                                            echo $controladorPrincipal->generarFormulario();
-                                            $cadena="<p class=\"button\"><input class='button' type='button' value=\"Enviar\" onclick=\"showUser(1);\"></p>";
-                                            echo $cadena;
-                                        }
+                                    $servicioTarea = $controladorPrincipal->getServicioTarea();
+                                    $numCampos = $servicioTarea->obtenerCamposEnOrden(0);
+                                    if ($numCampos != null) {
+                                        echo $controladorPrincipal->generarFormulario();
+                                        $cadena = "<p class=\"button\"><input class='button' type='button' value=\"Enviar\" onclick=\"showUser(1);\"></p>";
+                                        echo $cadena;
+                                    }
                                     ?>
                                 </form>
                             </div>                    
@@ -120,7 +119,7 @@ $sesion->filtro_login();
                     <p class="button"> 
                         <input class='button' type = 'submit' name = 'Instrucciones' value = 'Instrucciones' onclick="oculta()">
                     </p>
-                    <form action = 'sw/TareaSiguiente' method = 'POST'>
+                    <form action = 'sw/TareaSiguiente.php' method = 'POST'>
                         <p class="button"> 
                             <input class='button' type = 'submit' name = 'Siguiente' value = 'Siguiente'>
                         </p>
@@ -141,8 +140,8 @@ $sesion->filtro_login();
                                         for(i = 0; i<numero;i++){
                                             arregloID[i]= document.getElementById("campo"+[i]).name;
                                             arregloValor[i]= document.getElementById("campo"+[i]).value;
+                                            
                                         }
-                
                 
                                         if (arregloID.length!=numero)
                                         {
@@ -176,5 +175,40 @@ $sesion->filtro_login();
                 elemento.value = "";
             }
         </script>
+
+        <script>
+            function eliminarDatos(ids)
+            {
+                if(window.confirm("Esta seguro que desea eliminarlo?")){
+                    var arregloIDs = ids.split(",");
+                    
+                    var numero = <?php echo $controladorPrincipal->getNumCampos(); ?>;
+                    var arregloID = new Array(numero);
+                    for(i = 0; i<numero;i++){
+                        arregloID[i]= document.getElementById("campo"+[i]).name;
+                    }
+                    
+                    if (window.XMLHttpRequest)
+                    {// code for IE7+, Firefox, Chrome, Opera, Safari
+                        xmlhttp=new XMLHttpRequest();
+                    }
+                    else
+                    {// code for IE6, IE5
+                        xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+                    }
+                    xmlhttp.onreadystatechange=function()
+                    {
+                        if (xmlhttp.readyState==4 && xmlhttp.status==200)
+                        {
+
+                            document.getElementById("txtHint").innerHTML=xmlhttp.responseText;
+                        }
+                    }
+                    xmlhttp.open("GET","borrar.php?idsCampos="+arregloID+"&&idsBorrar="+arregloIDs,true);
+                    xmlhttp.send();
+                }
+            }
+        </script>
+
     </body>
 </html>

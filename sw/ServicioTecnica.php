@@ -36,8 +36,17 @@ class ServicioTecnica {
          return $this->tecnica;
      }
      public function obtenerTareaEnOrden($tareaActual){
-//         echo "<br>".$tareaActual."<br>";
+         if($tareaActual<  sizeof($this->tareas)){
          return $this->tareas[$tareaActual];
+             }else{
+             session_start();
+                //Se limpian las variables almacenadas en la sesión
+                $_SESSION = array();
+             session_destroy();
+
+               header("location: " . $GLOBALS['raiz_sitio'] . "/index.php");
+               exit;
+         }
      }
 }
 

@@ -24,8 +24,9 @@ class ServicioTarea {
     
         private function obtenerTarea($nombreTecnica,$tareaActual){
          $servicioTecnica=new ServicioTecnica($nombreTecnica);
-         
+
          $this->tarea=$servicioTecnica->obtenerTareaEnOrden($tareaActual);
+
      }
      private function obtenerCampos($idTarea){
          $tareaDAO=new TareaDAO();

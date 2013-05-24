@@ -24,8 +24,9 @@ class Sesion {
                             $_SESSION['nombre'] = $usuario->getNombre();
                             $_SESSION['tipo'] = $usuario->getTipoUsuario();
                             $_SESSION['matricula'] = $usuario->getMatricula();
-                            $_SESSION['nombreTecnica']="Tecnica de prueba";
+                            $_SESSION['nombreTecnica']="Pruebas funcionales";
                             $_SESSION['idTarea']=0;
+                            $_SESSION['idBD']=0;
                             if ($usuario->getTipoUsuario() == 2) {
                                 header("Location: principal.php");
                             } else {
@@ -52,7 +53,7 @@ class Sesion {
             $logueado = $_SESSION['login'];
             if ($logueado) {
                 if ($_SESSION['tipo'] == 2) {
-                    header("Location: principal.php");
+                    header("Location:" . $GLOBALS['raiz_sitio'] . "/principal.php");
                 }
             }
         }
@@ -63,10 +64,10 @@ class Sesion {
         if (isset($_SESSION['login'])) {
             $logueado = $_SESSION['login'];
             if (!$logueado) {
-                header("Location: " . $GLOBALS['raiz_sitio'] . "index.php");
+                header("Location: " . $GLOBALS['raiz_sitio'] . "/index.php");
             }
         } else {
-            header("Location: " . $GLOBALS['raiz_sitio'] . "index.php");
+            header("Location: " . $GLOBALS['raiz_sitio'] . "/index.php");
         }
     }
 
