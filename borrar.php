@@ -2,7 +2,6 @@
 
 session_start();
 $ids = $_GET["idsBorrar"];
-$idsCampos = $_GET["idsCampos"];
 
 $con = mysql_connect('localhost', 'root', '');
 if (!$con) {
@@ -11,46 +10,54 @@ if (!$con) {
 
 mysql_select_db("experiment_tsp", $con);
 $arregloIDs = explode(',', $ids);
-$arregloIDCampos = explode(',', $idsCampos);
 
 foreach ($arregloIDs as $indice => $datoID) {
     $mysql = "DELETE FROM `resultados_tareas` WHERE `id`=".$datoID;
     mysql_query($mysql);
 }
 
-
-$sql = "SELECT * FROM campos_tarea WHERE tarea_id='" . $_SESSION['idBD'] . "';";
+$sql = "SELECT * FROM campos_tarea WHERE tarea_id='" . ($_SESSION['idBD']). "';";
+//echo $sql;
 $result = mysql_query($sql);
-
+$campos_tareas = array();
 echo "<table border='1'><tr>";
 while ($row = mysql_fetch_array($result)) {
+    $campos_tareas[count($campos_tareas)]= $row;
     echo "<th>" . $row['nombre_campo'] . "</th>";
+}
+if(count($campos_tareas)>0){
+    echo "<th>Eliminar</th>";
 }
 echo "</tr>";
 
-$sql = "SELECT * FROM resultados_tareas WHERE usuario_id='" . $_SESSION['usuarioId'] . "';";
-$resultado = mysql_query($sql);
-$tamano = count($arregloIDCampos);
 
+$sql = "SELECT * FROM resultados_tareas where usuario_id='".$_SESSION['usuarioId'] ."'  ORDER BY ID";
+//echo $sql;
+$resultado = mysql_query($sql);
+$tamano = count($campos_tareas);
 $bandera = 0;
 $ids = "";
 while ($row = mysql_fetch_array($resultado)) {
+    $vacio = true;
     if ($bandera == 0) {
         echo "<tr>";
     }
-    
     for ($i = 0; $i < $tamano; $i++) {
-        if ($arregloIDCampos[$i] == $row['campos_tarea_id']) {
-            $ids = $ids.$row['id'];
+        if ($campos_tareas[$i]['id'] == $row['campos_tarea_id']) {
+            $ids .= $row['id'];
             if($i+1 < $tamano){
-                $ids = $ids.",";
+                $ids .= ",";
             }
             echo "<td>" . $row['valor'] . "</td>";
+            $vacio=false;
         }
     }
-    $bandera++;
+    if(!$vacio){
+        $bandera++;
+    }
+
     if ($bandera == $tamano) {
-        echo "<td width=\"15\" background=\"images/tacha.gif\" onclick=\"eliminarDatos('".$ids."');\">&nbsp;</td>";
+        echo "<td onclick=\"eliminarDatos('".$ids."');\"><img src=\"images/tacha.gif\"></img></td>";
         echo "</tr>";
         $bandera = 0;
         $ids = "";
