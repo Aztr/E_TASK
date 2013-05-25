@@ -2,6 +2,7 @@
 
 include_once 'DB/TecnicaDAO.php';
 include_once 'DB/TareaDAO.php';
+include_once 'DB/AsignacionDAO.php';
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -41,6 +42,10 @@ class ServicioTecnica {
              }else{
              //session_start();
                 //Se limpian las variables almacenadas en la sesión
+             $asignacionDAO=new AsignacionDAO();
+             $asignacion=$asignacionDAO->getAsignacion($_SESSION['idAsignacion']);
+             $id=$asignacion[0]['experimento_id'];
+             $asignacionDAO->desactivaExperimento($id);
              $_SESSION = array();
              session_destroy();
              header("location: " . $GLOBALS['raiz_sitio'] . "/index.php");

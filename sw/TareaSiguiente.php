@@ -1,5 +1,8 @@
 <?php
+include_once 'DB/AsignacionDAO.php';
 session_start();
 $_SESSION['idTarea']=$_SESSION['idTarea']+1;
-header("Location: " . $GLOBALS['raiz_sitio'] . "/E_TASK/principal.php");
+$dao=new AsignacionDAO();
+$dao->modificaTarea($_SESSION['idTarea'],$_SESSION['idAsignacion']);
+header("Location: " . $GLOBALS['raiz_sitio'] . "/principal.php");
 ?>

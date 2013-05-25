@@ -15,6 +15,7 @@ if (isset($_GET['tecnica'])) {
         if (strcmp(trim($asiganciones[$i]['nombre']), trim($_GET['tecnica'])) == 0) {
             $_SESSION['nombreTecnica'] = $_GET['tecnica'];
             $_SESSION['idTarea'] = $asiganciones[$i]['id_ultima_tarea'];
+            $_SESSION['idAsignacion']=$asiganciones[$i]['id'];
             break;
         }
     }
@@ -54,7 +55,7 @@ if (isset($_GET['tecnica'])) {
         <div class="container">	
             <div id="wrapper">
                 <header><h1>
-                                    <?php
+                        <?php
                         echo "Tarea: " . $controladorPrincipal->obtenerNombreTarea($_SESSION['idTarea']);
                         ?></h1>
                     </header>
