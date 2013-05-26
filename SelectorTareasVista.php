@@ -29,6 +29,12 @@ $servicioAsignacion = new ServicioAsignacion();
     <div class="container">
         <header>
             <h1>BIENVENIDO A  <span>E-Task</span></h1>
+            <div id="header">
+
+
+
+                <br class="clearfloat" />           
+            </div>        
         </header>
         <section>				
             <div id="container_demo" >
@@ -38,29 +44,39 @@ $servicioAsignacion = new ServicioAsignacion();
                 <!-- hidden anchor to stop jump http://www.css3create.com/Astuce-Empecher-le-scroll-avec-l-utilisation-de-target#wrap4  -->
                 <a class="hiddenanchor" id="toregister"></a>
                 <a class="hiddenanchor" id="tologin"></a>
+
                 <div id="wrapper">
+
                     <div id="login" class="animate form">
                         <form method="GET"  action="principal.php" autocomplete="on"> 
                             <h1>Seleccione su experimento</h1> 
-                            <h1><select required="required" name="tecnica" id="username" placeholder="Mi usuario">
-                                <?php
-                                $asiganciones = ($servicioAsignacion->obtenerAsignacion());
-
+                            <?php
+                            $asiganciones = ($servicioAsignacion->obtenerAsignacion());
+                            if (count($asiganciones) > 0) {
+                                echo '<h1><select required="required" name="tecnica" id="username" placeholder="Mi usuario">';
                                 for ($i = 0; $i < count($asiganciones); $i++) {
                                     echo '<option value="' . $asiganciones[$i]['nombre'] . '">' . $asiganciones[$i]['nombre'] . '</option>';
                                 }
-                                ?>  
-
-                            </select>
+                                echo '</select>
                                 <br/>
-                            <p/>                              
-                             <p class="button"> 
-                                <input id ="button_tecnica" type="submit"  value="Iniciar"/>
-                             </p>
-                                </h1>
-                                <?php
+                                <p/>                              
+                                <p class="button"> 
+                                    <input id ="button_tecnica" type="submit"  value="Iniciar"/>
+                                </p>
+                            </h1>';
+                            } else {
+                                echo '<h1>NO hay experimentos asignados</h1> ';
+                            }
+                            ?>  
 
-                                ?>
+
+                            <?php
+                            ?>
+                            </p>
+                        </form>
+                        <form action = 'sw/cerrarSesion.php' method = 'POST'>
+                            <p class="button"> 
+                                <input class='button' type = 'submit' name = 'logout' value = 'Salir'>
                             </p>
                         </form>
                     </div>

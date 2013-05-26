@@ -32,7 +32,11 @@ $sesion->sesionActiva();
                 div.style.display='none';
             }
         </script>
-        
+        <style type="text/css">
+            #wrapper{
+                width: 27%;
+            }
+        </style>
     </head>
     <body>
         <div class="container">

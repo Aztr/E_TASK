@@ -28,12 +28,18 @@ class AsignacionDAO extends ConexionGeneral {
 //    }
       public function obtenerAsignacion($idUsuario) {
         $conexion = $this->abrirConexion();
-        $sql = "SELECT asignaciones.id ,nombre,fecha_inicio,fecha_fin,id_ultima_tarea FROM (`asignaciones` JOIN sesion ON sesion_id = sesion.id) 
-            JOIN tecnica ON asignaciones.tecnica_id = tecnica.id WHERE  `usuario_id` = '" . mysql_real_escape_string($idUsuario) . "'";
+        $fecha_actual = date('Y-m-d H:i:s');
+        
+        //$sql = "SELECT asignaciones.id ,nombre,fecha_inicio,fecha_fin,id_ultima_tarea FROM (`asignaciones` JOIN sesion ON sesion_id = sesion.id) 
+          //  JOIN tecnica ON asignaciones.tecnica_id = tecnica.id WHERE  `usuario_id` = '" . mysql_real_escape_string($idUsuario) . "'  AND  '$fecha_actual' > fecha_fin" ;
+        $sql = "SELECT asignaciones.id ,tecnica.nombre,fecha_inicio,fecha_fin,id_ultima_tarea FROM ((`asignaciones` JOIN sesion ON sesion_id = sesion.id)
+            JOIN tecnica ON asignaciones.tecnica_id = tecnica.id )
+            JOIN experimento ON asignaciones.experimento_id = experimento.id WHERE `usuario_id` =  '" . mysql_real_escape_string($idUsuario) . "'  AND  '$fecha_actual' < fecha_fin AND `activo`!=0";
+//        echo $sql;
         $resultado = $this->ejecutarConsulta($sql, $conexion);
         $asignaciones = array();
         while ($fila = mysql_fetch_array($resultado)) {
-            echo count($asignaciones)+"  ";
+//            echo count($asignaciones)+"  ";
             $asignaciones[count($asignaciones)] = $fila;
         }
         $this->cerrarConexion($conexion);
@@ -60,6 +66,7 @@ class AsignacionDAO extends ConexionGeneral {
         $this->ejecutarConsulta($sql, $conexion);
         
         $this->cerrarConexion($conexion);        
+        return;
     }
     
     public function desactivaExperimento($numExp) {
