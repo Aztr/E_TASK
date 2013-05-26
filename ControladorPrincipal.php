@@ -62,7 +62,7 @@ class ControladorPrincipal {
         $this->camposEnTarea=0;
         $campo=$this->servicioTarea->obtenerCamposEnOrden($i);
         do{
-            $cadena=$cadena."<p>".$campo->getNombreCampo().": <input id=\"campo".$i."\" name=\"".$campo->getId()."\" type=\"text\" onclick=\"javascript: limpia(this);\"/> </p>";
+            $cadena=$cadena."<p>".$campo->getNombreCampo().": <input id=\"campo".$i."\" name=\"".$campo->getId()."\" required=\"required\" type=\"text\" onclick=\"javascript: limpia(this);\"/> </p>";
             $this->camposEnTarea+=1;
             $i+=1;
             $campo=$this->servicioTarea->obtenerCamposEnOrden($i);

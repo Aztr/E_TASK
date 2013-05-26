@@ -39,6 +39,7 @@ if (isset($_GET['tecnica'])) {
         <link rel="shortcut icon" href="../favicon.ico"> 
         <link rel="stylesheet" type="text/css" href="css/demo.css" />
         <link rel="stylesheet" type="text/css" href="css/style.css" />
+        <link rel="stylesheet" type="text/css" href="css/tablas2.css" />
         <script type="text/javascript" language="javascript" src="js/jquery-1.6.4.js" ></script>
         <script type="text/javascript" language="javascript" src="js/jquery.form.js" ></script>
         <script type="text/javascript" language="javascript" src="js/js_index.js" ></script>
@@ -155,6 +156,10 @@ if (isset($_GET['tecnica'])) {
                                         for(i = 0; i<numero;i++){
                                             arregloID[i]= document.getElementById("campo"+[i]).name;
                                             arregloValor[i]= document.getElementById("campo"+[i]).value;
+                                            if(arregloValor[i]==""){
+                                                alert("Es necesario rellenar todos los campos en el formulario.");
+                                                return;
+                                            }
                                             
                                         }
                 

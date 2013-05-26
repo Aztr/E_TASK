@@ -24,7 +24,7 @@ $sql = "SELECT * FROM campos_tarea WHERE tarea_id='" . ($_SESSION['idBD']). "';"
 //echo $sql;
 $result = mysql_query($sql);
 $campos_tareas = array();
-echo "<table border='1'><tr>";
+echo "<table id=\"rounded-corner\" border='1'><tr>";
 while ($row = mysql_fetch_array($result)) {
     $campos_tareas[count($campos_tareas)]= $row;
     echo "<th>" . $row['nombre_campo'] . "</th>";
