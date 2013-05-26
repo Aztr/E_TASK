@@ -32,7 +32,6 @@ class ServicioTecnica {
          
          $this->tareas=$tareaDAO->seleccionarTareasPorIdTecnica($idTecnica);
      }
-     
      public function getTecnica(){
          return $this->tecnica;
      }
@@ -46,9 +45,9 @@ class ServicioTecnica {
              $asignacion=$asignacionDAO->getAsignacion($_SESSION['idAsignacion']);
              $id=$asignacion[0]['experimento_id'];
              $asignacionDAO->desactivaExperimento($id);
-             $_SESSION = array();
-             session_destroy();
-             header("location: " . $GLOBALS['raiz_sitio'] . "/index.php");
+//             $_SESSION = array();
+//             session_destroy();
+             header("location: " . $GLOBALS['raiz_sitio'] . "/SelectorTareasVista.php");
              exit;
          }
      }

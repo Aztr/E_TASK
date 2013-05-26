@@ -32,9 +32,9 @@ class AsignacionDAO extends ConexionGeneral {
         
         //$sql = "SELECT asignaciones.id ,nombre,fecha_inicio,fecha_fin,id_ultima_tarea FROM (`asignaciones` JOIN sesion ON sesion_id = sesion.id) 
           //  JOIN tecnica ON asignaciones.tecnica_id = tecnica.id WHERE  `usuario_id` = '" . mysql_real_escape_string($idUsuario) . "'  AND  '$fecha_actual' > fecha_fin" ;
-        $sql = "SELECT asignaciones.id ,tecnica.nombre,fecha_inicio,fecha_fin,id_ultima_tarea FROM ((`asignaciones` JOIN sesion ON sesion_id = sesion.id)
+        $sql = "SELECT asignaciones.id ,tecnica.nombre,fecha_inicio,fecha_fin,id_ultima_tarea,tecnica_id FROM ((`asignaciones` JOIN sesion ON sesion_id = sesion.id)
             JOIN tecnica ON asignaciones.tecnica_id = tecnica.id )
-            JOIN experimento ON asignaciones.experimento_id = experimento.id WHERE `usuario_id` =  '" . mysql_real_escape_string($idUsuario) . "'  AND  '$fecha_actual' < fecha_fin AND `activo`!=0";
+            JOIN experimento ON asignaciones.experimento_id = experimento.id WHERE `usuario_id` =  '" . mysql_real_escape_string($idUsuario) . "'  AND `activo`!=0";
 //        echo $sql;
         $resultado = $this->ejecutarConsulta($sql, $conexion);
         $asignaciones = array();
@@ -70,11 +70,12 @@ class AsignacionDAO extends ConexionGeneral {
     }
     
     public function desactivaExperimento($numExp) {
-        $conexion=$this->abrirConexion(); 
-        $sql ="UPDATE experimento SET activo=" . 0 ." WHERE id=".$numExp;
-        $this->ejecutarConsulta($sql, $conexion);
-        
-        $this->cerrarConexion($conexion);        
+//        $conexion=$this->abrirConexion(); 
+////        $sql ="UPDATE experimento SET activo=" . 0 ." WHERE id=".$numExp;
+////        $this->ejecutarConsulta($sql, $conexion);
+//        
+//        $this->cerrarConexion($conexion);        
+        return ;
     }
 }
 

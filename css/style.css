@@ -36,7 +36,7 @@ a.hiddenanchor{
 #wrapper{
     width: 75%;
     right: 0px;
-    min-height: 560px;	
+    min-height: 760px;	
     margin: 0px auto;	
     position: relative;	
 }
@@ -466,7 +466,7 @@ p.change_link{
     padding: 5px 5px 5px 5px;*/
     border:#AAAAAA 1px solid;
     width: 80%;
-    height:555px;
+    height:732px;
     float:left;
     /*overflow:auto;*/
     /*margin: 0 3px 0 3px;*/  /* the right margin can be given in ems or pixels. It creates the space down the right side of the page. */
@@ -478,7 +478,7 @@ p.change_link{
     padding: 3px 3px 3px 10px;
     border:#000 1px solid;
     width: 78%;
-    height: 300px;
+    height: 720px;
     background-color:#FFFFCC;
     overflow:auto;
     position:absolute;
@@ -648,7 +648,7 @@ p.change_link{
     margin: 2px 1px 1px 1px;
     padding: 1px 1px 1px 1px;
     border:#333333 1px solid;
-    height:23px;
+    height:200px;
     overflow:auto;
 }
 

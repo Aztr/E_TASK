@@ -16,15 +16,15 @@
 class TecnicaDAO extends ConexionGeneral{
 
        public function seleccionarTecnicaPorNombre($nombreTecnica) {
-        $conexion=$this->abrirConexion();        
+        $conexion = $this->abrirConexion();
         $sql = "SELECT * FROM tecnica WHERE nombre ='" . mysql_real_escape_string($nombreTecnica) . "'";
         $resultado = $this->ejecutarConsulta($sql, $conexion);
-        $Tecnica=null;
+        $Tecnica = null;
         while ($fila = mysql_fetch_array($resultado)) {
-            $Tecnica = new Tecnica($fila["id"],$fila["nombre"], $fila["descripcion"]);
+            $Tecnica = new Tecnica($fila["id"], $fila["nombre"], $fila["descripcion"]);
             return $Tecnica;
         }
-        $this->cerrarConexion($conexion);        
+        $this->cerrarConexion($conexion);
         return $Tecnica;
     }
       

@@ -2,6 +2,7 @@
 include_once 'config.inc.php';
 include_once 'sw/Sesion.php';
 include_once 'sw/ServicioAsignacion.php';
+include_once 'sw/ServicioTecnica.php';
 //$sesion = new Sesion();
 $sesion = new Sesion();
 $sesion->filtro_login();
@@ -55,7 +56,10 @@ $servicioAsignacion = new ServicioAsignacion();
                             if (count($asiganciones) > 0) {
                                 echo '<h1><select required="required" name="tecnica" id="username" placeholder="Mi usuario">';
                                 for ($i = 0; $i < count($asiganciones); $i++) {
-                                    echo '<option value="' . $asiganciones[$i]['nombre'] . '">' . $asiganciones[$i]['nombre'] . '</option>';
+                                    echo "----->".$servicioAsignacion->numeroTareas($asiganciones[$i]['tecnica_id'])."-----".($asiganciones[$i]['id_ultima_tarea'])."<br>";
+                                    if($servicioAsignacion->numeroTareas($asiganciones[$i]['tecnica_id'])!=($asiganciones[$i]['id_ultima_tarea'])){
+                                        echo '<option value="' . $asiganciones[$i]['nombre'] . '">' . $asiganciones[$i]['nombre'] . '</option>';
+                                    }
                                 }
                                 echo '</select>
                                 <br/>

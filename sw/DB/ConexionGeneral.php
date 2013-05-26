@@ -1,7 +1,8 @@
 <?php
-include_once 'config.inc.php';
+//include_once 'config.inc.php';
 class ConexionGeneral {
     public function abrirConexion() {        
+//        echo $GLOBALS["servidor"].$GLOBALS["usuarioDB"]. $GLOBALS["contrasenaDB"];
         $conexion = @mysql_connect($GLOBALS["servidor"], $GLOBALS["usuarioDB"], $GLOBALS["contrasenaDB"]) or
                 die('<div class="error" style="font-family:Arial, Helvetica, sans-serif;font-size:20px;">Intente acceder en otro momento ERROR: " ' . mysql_error()) . '"</div>';
         $this->selecionarBD($conexion);

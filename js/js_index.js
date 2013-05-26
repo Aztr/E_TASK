@@ -7,12 +7,11 @@ window.onload = function(){
     function mostrarRespuesta (responseText){
         if(responseText.trim()=="TRUE"){
             window.location="index.php";
+//alert(responseText);    
         }
         else{
             alert("Error al registrar al alumno \n verifique los datos ");    
-        }
-        
-        
+        }                
     };
 }
 

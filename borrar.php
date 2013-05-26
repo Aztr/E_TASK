@@ -1,14 +1,14 @@
 <?php
-
+include_once 'config.inc.php';
 session_start();
 $ids = $_GET["idsBorrar"];
 
-$con = mysql_connect('localhost', 'root', '');
+$con = mysql_connect($GLOBALS["servidor"], $GLOBALS["usuarioDB"], $GLOBALS["contrasenaDB"]);
 if (!$con) {
     die('Could not connect: ' . mysql_error());
 }
 
-mysql_select_db("experiment_tsp", $con);
+mysql_select_db($GLOBALS["base_datos"], $con);
 $arregloIDs = explode(',', $ids);
 
 foreach ($arregloIDs as $indice => $datoID) {

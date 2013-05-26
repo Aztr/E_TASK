@@ -1,15 +1,15 @@
 <?php
-
+include_once 'config.inc.php';
 session_start();
 $q = $_GET["q"];
 $r = $_GET["r"];
 //echo $q.$r;
-$con = mysql_connect('localhost', 'root', '');
+$con = mysql_connect($GLOBALS["servidor"], $GLOBALS["usuarioDB"], $GLOBALS["contrasenaDB"]);
 //$link = mysqli_connect('localhost', 'root', '');
 if (!$con) {
     die('Could not connect: ' . mysql_error());
 }
-mysql_select_db("experiment_tsp", $con);
+mysql_select_db($GLOBALS["base_datos"], $con);
 $arregloID = explode(',', $q);
 $arregloValor = explode(',', $r);
 

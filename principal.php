@@ -6,6 +6,7 @@ include_once 'ControladorPrincipal.php';
 include_once 'sw/ServicioObjeto.php';
 include_once 'sw/ServicioTarea.php';
 include_once 'sw/ServicioTecnica.php';
+include_once 'sw/ServicioDefectos.php';
 $sesion = new Sesion();
 $sesion->filtro_login();
 if (isset($_GET['tecnica'])) {
@@ -45,6 +46,7 @@ if (isset($_GET['tecnica'])) {
         <script type="text/javascript" language="javascript" src="js/js_index.js" ></script>
         <script type="text/javascript" language="javascript" src="js/functions.js" ></script>
         <script type="text/javascript" language="javascript" src="js/ajax.js" ></script>
+        <script type="text/javascript" language="javascript" src="js/addDefectos.js" ></script>
 
     </head>
     <body onload="noBack();" onpageshow="if (event.persisted) noBack();" onunload="">
@@ -125,7 +127,43 @@ if (isset($_GET['tecnica'])) {
                             </div>
 
                             <div id="piePagina">                       
-                                <? //php include('footpage.php');    ?>
+                                <?
+                                $servDefe = new ServicioDefectos();
+                                ?>
+                                <form id="form_reg_defect" name="form_reg_defect" method="POST" action="sw/ServicioDefectos.php">                                                                       
+                                    <h1>
+                                         Registrar defecto
+                                         <br/>
+                                         <br/>
+                                    <input id="Defecto" name="descripcion" required="required" type="text" placeholder="Describcion del defecto"/> 
+                                    <br/>
+                                    <br/>
+                                    <input type="hidden" name="id_asig" value="<?php echo $_SESSION['idAsignacion']?>" />
+                                    <label for="Tipo" style="font-size: 18px" > Tipo de detección </label>
+                                    <select id="Tipo" required="required" name="tipo_deteccion_defectos" id="username" >
+                                        <?
+                                        $tiposDef = $servDefe->obtenerTiposDetectDefectos();
+                                        for ($i = 0; $i < count($tiposDef); $i++) {
+                                            echo '<option value="' . $tiposDef[$i]['id'] . '">' . $tiposDef[$i]['nombre'] . '</option>';
+                                        }
+                                        ?>
+                                    </select>
+                                    <label for="Tipo" style="font-size: 18px" > Tipo de defecto </label>
+                                    <select id="Tipo" required="required" name="id_tipo_detec" id="username" >
+                                        <?
+                                        $tiposDef = $servDefe->obtenerTiposDefectos();
+                                        for ($i = 0; $i < count($tiposDef); $i++) {
+                                            echo '<option value="' . $tiposDef[$i]['id'] . '">' . $tiposDef[$i]['nombre_defecto'] . '</option>';
+                                        }
+                                        ?>
+                                    </select>
+
+                                    <p class="button"> 
+                                        <br/>
+                                        <input name ="Reg_def" class='button' type="submit"  value = 'Registrar'>
+                                    </p>
+                                    </h1>
+                                </form>
                             </div>  
 
                         </div> 
@@ -149,8 +187,8 @@ if (isset($_GET['tecnica'])) {
             {
                 
                 var numero = <?php
-                                echo $controladorPrincipal->getNumCampos();
-                                ?>;
+                                        echo $controladorPrincipal->getNumCampos();
+                                        ?>;
                                         var arregloID = new Array(numero);
                                         var arregloValor = new Array(numero);
                                         for(i = 0; i<numero;i++){

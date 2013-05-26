@@ -7,7 +7,7 @@ class UsuarioDAO extends ConexionGeneral {
     public function seleccionarUsuarioPorMatricula($usuarioMatricula) {
         $conexion=$this->abrirConexion();        
         $sql = "SELECT * FROM usuario WHERE nombre_usuario ='" . mysql_real_escape_string($usuarioMatricula) . "'";
-        //echo $sql;
+//        echo $sql;
         $resultado = $this->ejecutarConsulta($sql, $conexion);
         $usuario=null;
         while ($fila = mysql_fetch_array($resultado)) {
@@ -21,7 +21,7 @@ class UsuarioDAO extends ConexionGeneral {
     public function insertarUsuario($contrasena, $nombre, $apellidoP, $apellidoM, $matricula, $tipoUsuario) {
         $registroExitoso = false;
         $conexionDB = $this->abrirConexion();
-        $sql = "INSERT INTO USUARIO (nombre,apellido,nombre_usuario,contrasena,administrador) VALUES (\"" . $nombre .
+        $sql = "INSERT INTO usuario (nombre,apellido,nombre_usuario,contrasena,administrador) VALUES (\"" . $nombre .
                 "\",\"".$apellidoP."\",\"" . $matricula . "\", \"" . $contrasena . "\"," . $tipoUsuario . ");";
 //        echo $sql;
         if ($this->ejecutarConsulta($sql, $conexionDB)) {

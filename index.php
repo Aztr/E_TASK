@@ -74,7 +74,7 @@ $sesion->sesionActiva();
                         </div>
 
                         <div id="register" class="animate form">
-                            <form id="form_reg_" action="ControladorAlumno.php" autocomplete="on"> 
+                            <form id="form_reg_" action="ControladorAlumno.php" autocomplete="on" method="GET"> 
                                 <h1> Formulario de Registro </h1> 
                                 <p> 
                                     <label for="usernamesignup" class="uname" data-icon="u"> Nombre(s) </label>

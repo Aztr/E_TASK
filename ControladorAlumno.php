@@ -26,6 +26,9 @@ class ControladorAlumno{
         }
     }
 }
-$agregarAlumno = new ControladorAlumno();
-echo $agregarAlumno->agregarAlumnoC();
+if(isset($_GET["btn_registrar"])){
+    include_once 'config.inc.php';
+    $agregarAlumno = new ControladorAlumno();
+    echo $agregarAlumno->agregarAlumnoC();
+}
 ?>
