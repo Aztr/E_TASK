@@ -4,7 +4,9 @@ session_start();
 $q = $_GET["q"];
 $r = $_GET["r"];
 //echo $q.$r;
+echo $GLOBALS["servidor"]. $GLOBALS["usuarioDB"].$GLOBALS["contrasenaDB"];
 $con = mysql_connect($GLOBALS["servidor"], $GLOBALS["usuarioDB"], $GLOBALS["contrasenaDB"]);
+
 //$link = mysqli_connect('localhost', 'root', '');
 if (!$con) {
     die('Could not connect: ' . mysql_error());
@@ -15,7 +17,7 @@ $arregloValor = explode(',', $r);
 
 foreach ($arregloID as $indice => $datoID) {
     $datoValor = $arregloValor[$indice];
-    $mysql = "INSERT INTO `resultados_tareas` (`valor`, `usuario_id`,`campos_tarea_id`,`numero_transaccion`) VALUES ('" . @mysql_escape_string($datoValor) . "'," . $_SESSION['usuarioId'] . "," . $datoID . ",0);";
+    $mysql = "INSERT INTO `resultados_tareas` (`valor`, `usuario_id`,`campos_tarea_id`) VALUES ('" . @mysql_escape_string($datoValor) . "'," . $_SESSION['usuarioId'] . "," . $datoID . ");";
 //    echo $mysql;
     mysql_query($mysql);
 }

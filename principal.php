@@ -52,8 +52,8 @@ if (isset($_GET['tecnica'])) {
     <body onload="noBack();" onpageshow="if (event.persisted) noBack();" onunload="">
         <?php
         $controladorPrincipal = ControladorPrincipal::getInstance($_SESSION['nombreTecnica'], $_SESSION['idTarea']);
-        if ($controladorPrincipal->getNumCampos() > 0)
-            $controladorPrincipal->registraFormulario();
+        $servicioAsignacion = new ServicioAsignacion();
+        $_SESSION['idBD'] = $controladorPrincipal->obtenerIdTarea($_SESSION['idTarea']);
         ?>
         <div class="container">	
             <div id="wrapper">
@@ -66,7 +66,8 @@ if (isset($_GET['tecnica'])) {
 
                     <div id="titleLeft">
                         <?php
-                        $_SESSION['idBD'] = $controladorPrincipal->obtenerIdTarea($_SESSION['idTarea']);
+//                        $_SESSION['idBD'] = $controladorPrincipal->obtenerIdTarea($_SESSION['idTarea']);
+                        $servicioAsignacion->registrarInicioTarea($_SESSION['idBD']);
                         ?>
                     </div>
                     <div id="titleRight">
@@ -82,15 +83,27 @@ if (isset($_GET['tecnica'])) {
                 </div>
                 <div id="subContainerOne">
                     <div id="subContainerTwo">            
-                        <div id="leftBar">
+                        <div id="leftBar" style="word-wrap: break-word; white-space: -moz-pre-wrap; word-wrap: break-word;
+display:inline-block;">
                             <?php $servicioObjeto = new ServicioObjeto(1); ?>									
-                            <p><?php echo $servicioObjeto->getNombreObjeto() ?></p>	
-                            <p>
+                            <p style="word-wrap: break-word; white-space: -moz-pre-wrap; word-wrap: break-word;
+display:inline-block;"><?php echo $servicioObjeto->getNombreObjeto() ?></p>	
+                            <p style="word-wrap: break-word; white-space: -moz-pre-wrap;word-wrap: break-word;
+display:inline-block; ">
                                 <?php
-                                $raw = file_get_contents($servicioObjeto->getDireccionObjeto());
-                                echo '<pre>';
-                                echo str_replace("[\n]", "<br>", $raw);
-                                echo '</pre>'
+                                try {
+                                    if (is_file($servicioObjeto->getDireccionObjeto())) {
+                                        $raw = file_get_contents($servicioObjeto->getDireccionObjeto());
+
+                                        echo '<pre style="word-wrap: break-word; ">';
+                                        echo str_replace("[\n]", "<br>", $raw);
+                                        echo '</pre>';
+                                    } else {
+                                        echo '<pre style="word-wrap: break-word; ">Archivo fuente no encontrado</pre>';
+                                    }
+                                } catch (Exception $e) {
+                                    echo '<pre>Archivo fuente no encontrado</pre>';
+                                }
                                 ?>                            </p>		
                         </div>           
                         <div id="workArea">
@@ -111,7 +124,7 @@ if (isset($_GET['tecnica'])) {
                                     $numCampos = $servicioTarea->obtenerCamposEnOrden(0);
                                     if ($numCampos != null) {
                                         echo $controladorPrincipal->generarFormulario();
-                                        $cadena = "<p class=\"button\"><input class='button' type='button' value=\"Enviar\" onclick=\"showUser(1);\"></p>";
+                                        $cadena = "<p class=\"button\"><input class='button' type='button' value=\"Enviar\" onclick=\"showUser();\"></p>";
                                         echo $cadena;
                                     }
                                     ?>
@@ -132,36 +145,36 @@ if (isset($_GET['tecnica'])) {
                                 ?>
                                 <form id="form_reg_defect" name="form_reg_defect" method="POST" action="sw/ServicioDefectos.php">                                                                       
                                     <h1>
-                                         Registrar defecto
-                                         <br/>
-                                         <br/>
-                                    <input id="Defecto" name="descripcion" required="required" type="text" placeholder="Describcion del defecto"/> 
-                                    <br/>
-                                    <br/>
-                                    <input type="hidden" name="id_asig" value="<?php echo $_SESSION['idAsignacion']?>" />
-                                    <label for="Tipo" style="font-size: 18px" > Tipo de detección </label>
-                                    <select id="Tipo" required="required" name="tipo_deteccion_defectos" id="username" >
-                                        <?
-                                        $tiposDef = $servDefe->obtenerTiposDetectDefectos();
-                                        for ($i = 0; $i < count($tiposDef); $i++) {
-                                            echo '<option value="' . $tiposDef[$i]['id'] . '">' . $tiposDef[$i]['nombre'] . '</option>';
-                                        }
-                                        ?>
-                                    </select>
-                                    <label for="Tipo" style="font-size: 18px" > Tipo de defecto </label>
-                                    <select id="Tipo" required="required" name="id_tipo_detec" id="username" >
-                                        <?
-                                        $tiposDef = $servDefe->obtenerTiposDefectos();
-                                        for ($i = 0; $i < count($tiposDef); $i++) {
-                                            echo '<option value="' . $tiposDef[$i]['id'] . '">' . $tiposDef[$i]['nombre_defecto'] . '</option>';
-                                        }
-                                        ?>
-                                    </select>
-
-                                    <p class="button"> 
+                                        Registrar defecto
                                         <br/>
-                                        <input name ="Reg_def" class='button' type="submit"  value = 'Registrar'>
-                                    </p>
+                                        <br/>
+                                        <input id="Defecto" name="descripcion" required="required" type="text" placeholder="Describcion del defecto"/> 
+                                        <br/>
+                                        <br/>
+                                        <input type="hidden" name="id_asig" value="<?php echo $_SESSION['idAsignacion'] ?>" />
+                                        <label for="Tipo" style="font-size: 18px" > Tipo de detección </label>
+                                        <select id="Tipo" required="required" name="tipo_deteccion_defectos" id="username" >
+                                            <?
+                                            $tiposDef = $servDefe->obtenerTiposDetectDefectos();
+                                            for ($i = 0; $i < count($tiposDef); $i++) {
+                                                echo '<option value="' . $tiposDef[$i]['id'] . '">' . $tiposDef[$i]['nombre'] . '</option>';
+                                            }
+                                            ?>
+                                        </select>
+                                        <label for="Tipo" style="font-size: 18px" > Tipo de defecto </label>
+                                        <select id="Tipo" required="required" name="id_tipo_detec" id="username" >
+                                            <?
+                                            $tiposDef = $servDefe->obtenerTiposDefectos();
+                                            for ($i = 0; $i < count($tiposDef); $i++) {
+                                                echo '<option value="' . $tiposDef[$i]['id'] . '">' . $tiposDef[$i]['nombre_defecto'] . '</option>';
+                                            }
+                                            ?>
+                                        </select>
+
+                                        <p class="button"> 
+                                            <br/>
+                                            <input name ="Reg_def" class='button' type="submit"  value = 'Registrar'>
+                                        </p>
                                     </h1>
                                 </form>
                             </div>  
@@ -187,44 +200,44 @@ if (isset($_GET['tecnica'])) {
             {
                 
                 var numero = <?php
-                                        echo $controladorPrincipal->getNumCampos();
-                                        ?>;
-                                        var arregloID = new Array(numero);
-                                        var arregloValor = new Array(numero);
-                                        for(i = 0; i<numero;i++){
-                                            arregloID[i]= document.getElementById("campo"+[i]).name;
-                                            arregloValor[i]= document.getElementById("campo"+[i]).value;
-                                            if(arregloValor[i]==""){
-                                                alert("Es necesario rellenar todos los campos en el formulario.");
-                                                return;
-                                            }
+                                            echo $controladorPrincipal->getNumCampos();
+                                            ?>;
+        var arregloID = new Array(numero);
+        var arregloValor = new Array(numero);
+        for(i = 0; i<numero;i++){
+            arregloID[i]= document.getElementById("campo"+[i]).name;
+            arregloValor[i]= document.getElementById("campo"+[i]).value;
+            if(arregloValor[i]==""){
+                alert("Es necesario rellenar todos los campos en el formulario.");
+                return;
+            }
                                             
-                                        }
+        }
                 
-                                        if (arregloID.length!=numero)
-                                        {
+        if (arregloID.length!=numero)
+        {
 
-                                            document.getElementById("txtHint").innerHTML="";
-                                            return;
-                                        } 
-                                        if (window.XMLHttpRequest)
-                                        {// code for IE7+, Firefox, Chrome, Opera, Safari
-                                            xmlhttp=new XMLHttpRequest();
-                                        }
-                                        else
-                                        {// code for IE6, IE5
-                                            xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-                                        }
-                                        xmlhttp.onreadystatechange=function()
-                                        {
-                                            if (xmlhttp.readyState==4 && xmlhttp.status==200)
-                                            {
-                                                document.getElementById("txtHint").innerHTML=xmlhttp.responseText;
-                                            }
-                                        }
-                                        xmlhttp.open("GET","getDatos.php?q="+arregloID+"&&r="+arregloValor,true);
-                                        xmlhttp.send();
-                                    }
+            document.getElementById("txtHint").innerHTML="";
+            return;
+        } 
+        if (window.XMLHttpRequest)
+        {// code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp=new XMLHttpRequest();
+        }
+        else
+        {// code for IE6, IE5
+            xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange=function()
+        {
+            if (xmlhttp.readyState==4 && xmlhttp.status==200)
+            {
+                document.getElementById("txtHint").innerHTML=xmlhttp.responseText;
+            }
+        }
+        xmlhttp.open("GET","getDatos.php?q="+arregloID+"&r="+arregloValor,true);
+        xmlhttp.send();
+    }
         </script>
 
         <script>

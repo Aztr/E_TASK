@@ -29,7 +29,7 @@ class ServicioDefectos {
 if(isset($_POST['Reg_def'])){
     include_once '../config.inc.php';
     $ser = new ServicioDefectos();    
-    $ser->insertarDefecto($_POST['descripcion'], $_POST['id_asig'], $_POST['tipo_deteccion_defectos'],$_POST['id_tipo_detec']);
-    echo $_POST['descripcion']."--->". $_POST['id_asig']."--->".$_POST['tipo_deteccion_defectos']."--->".$_POST['id_tipo_detec'];
+    $ser->insertarDefecto($_POST['descripcion'], $_POST['id_asig'], $_POST['id_tipo_detec'],$_POST['tipo_deteccion_defectos']);
+//    echo $_POST['descripcion']."--->". $_POST['id_asig']."--->".$_POST['tipo_deteccion_defectos']."--->".$_POST['id_tipo_detec'];
 }
 ?>
